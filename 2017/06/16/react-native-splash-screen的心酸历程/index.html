@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/16/react-native-splash-screen的心酸历程/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="楼主学习react-antive的时候，在Android项目中，电脑原因太卡了，跑项目能跑一天才能跑起来，想死的心都有了！而且跑到手机上之后老是白屏，所以想着能不能用开源的包来打包一下，让初始化进入项目的时候，让项目的初始化白屏变成一个动画图片，于是从度娘找到了react-native-splash-screen这个伟大的包，痛苦总是有的，但结果还算开心！太坑了就是，以下分享我的痛苦历程：  第一">
-<meta property="og:updated_time" content="2017-06-16T07:11:15.545Z">
+<meta property="og:updated_time" content="2017-06-18T01:51:52.607Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
 <meta name="twitter:description" content="楼主学习react-antive的时候，在Android项目中，电脑原因太卡了，跑项目能跑一天才能跑起来，想死的心都有了！而且跑到手机上之后老是白屏，所以想着能不能用开源的包来打包一下，让初始化进入项目的时候，让项目的初始化白屏变成一个动画图片，于是从度娘找到了react-native-splash-screen这个伟大的包，痛苦总是有的，但结果还算开心！太坑了就是，以下分享我的痛苦历程：  第一">
@@ -75,29 +75,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>楼主学习react-antive的时候，在Android项目中，电脑原因太卡了，跑项目能跑一天才能跑起来，想死的心都有了！而且跑到手机上之后老是白屏，所以想着能不能用开源的包来打包一下，让初始化进入项目的时候，让项目的初始化白屏变成一个动画图片，于是从度娘找到了react-native-splash-screen这个伟大的包，痛苦总是有的，但结果还算开心！太坑了就是，以下分享我的痛苦历程：</p>
-<blockquote>
+        <pre><code>楼主学习react-antive的时候，在Android项目中，电脑原因太卡了，跑项目能跑一天才能跑起来，想死的心都有了！而且跑到手机上之后老是白屏，所以想着能不能用开源的包来打包一下，让初始化进入项目的时候，让项目的初始化白屏变成一个动画图片，于是从度娘找到了react-native-splash-screen这个伟大的包，痛苦总是有的，但结果还算开心！太坑了就是，以下分享我的痛苦历程：
+</code></pre><blockquote>
 <p>第一步（下载）：从react-native的根目录下下载包</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> npm i react-native-splash-screen --save</div><div class="line"></div><div class="line">&gt; 第二步（安装）：：安装包：一种是自动安装，一种是手动安装（楼主是自动安装的，所以就只介绍自动安装的方法了，具体手动安装的可以去官网查看）</div><div class="line"></div><div class="line">`react-native link react-native-splash-screen 或者  rnpm link react-native-splash-screen`</div><div class="line">			</div><div class="line"></div><div class="line">&gt; 第三步（配置）： （1）  在 Android的目录：android/app/src/main/java/com/uto/ MainActivity.java下更新你的 MainActivity.java 文件如下：</div></pre></td></tr></table></figure>
-<p>import android.os.Bundle;<br>import com.facebook.react.ReactActivity;<br>import com.cboy.rn.splashscreen.SplashScreen;</p>
-<p>public class MainActivity extends ReactActivity {<br>   @Override<br>    protected void onCreate(Bundle savedInstanceState) {//如果这个函数没有，就自行添加<br>        SplashScreen.show(this);  // here<br>        super.onCreate(savedInstanceState);<br>    }<br>    // …other code<br>}</p>
-<p>（2）IOS：更新你的AppDelegate.m 文件如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#import &quot;AppDelegate.h&quot;</div><div class="line">#import &quot;RCTRootView.h&quot;</div><div class="line">#import &quot;SplashScreen.h&quot;  // here</div><div class="line"></div><div class="line">@implementation AppDelegate</div><div class="line"></div><div class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</div><div class="line">&#123;</div><div class="line">    // ...other code</div><div class="line"></div><div class="line">    [SplashScreen show];  // here</div><div class="line">    return YES;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"> npm i react-native-splash-screen --save</div><div class="line"></div><div class="line">&gt; 第二步（安装）：：安装包：一种是自动安装，一种是手动安装（楼主是自动安装的，所以就只介绍自动安装的方法了，具体手动安装的可以去官网查看）</div><div class="line"></div><div class="line">`react-native link react-native-splash-screen 或者  rnpm link react-native-splash-screen`</div><div class="line">			</div><div class="line">第三步（配置）： （1）  在 Android的目录：android/app/src/main/java/com/uto/ MainActivity.java下更新你的 MainActivity.java 文件如下：</div><div class="line"></div><div class="line">import android.os.Bundle;</div><div class="line">import com.facebook.react.ReactActivity;</div><div class="line">import com.cboy.rn.splashscreen.SplashScreen;</div><div class="line"></div><div class="line">public class MainActivity extends ReactActivity &#123;</div><div class="line">   @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;//如果这个函数没有，就自行添加</div><div class="line">        SplashScreen.show(this);  // here</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">    &#125;</div><div class="line">    // ...other code</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
-<p>第四步（运行）：前面的都是官网可以查到的，后面运行的时候各种调试，各种bug都可能出现。一般都是因为你的文件目录和内容没引对 导致项目运行失败<br>     1， 将 react-native-splash-screen 导入你的JS 文件（你的项目的路由路由第一个加载的组件）。</p>
+<p>第四步（运行）：前面的都是官网可以查到的，后面运行的时候各种调试，各种bug都可能出现。一般都是因为你的文件目录和内容没引对 导致项目运行失败<br>     1， 将 react-native-splash-screen 导入你的JS 文件（你的项目的路由路由第一个加载的组件）。<br>        import SplashScreen from ‘react-native-splash-screen’</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import SplashScreen from &apos;react-native-splash-screen&apos;</div><div class="line">2， Android:</div><div class="line">   创建一个名为 launch_screen.xml 的布局文件来自定义你的启动屏幕。最坑的地方就在这里：如果你要添加一个名为launch_screen.xml文件，这个文件需要放在 android/app/src/main/res/layout下，如果没有layout文件，你就要新建一个layout文件并把xml文件放进去；另外，你还要在res目录下新建一个 drawable-xhdpi文件夹，里面放你想要在初始加载的时候展示的图片，图片的名称要为launch_screen.png；如果不是这样设置的就回出现各种不懂得bug，都是因为这个文件导致的，比如说could not create deotory；还有就是java.io.Exception,还有一个是aapt，说Java的sdk爆炸了，其实根源都在这里。</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">2， Android:</div><div class="line">   创建一个名为 launch_screen.xml 的布局文件来自定义你的启动屏幕。最坑的地方就在这里：如果你要添加一个名为launch_screen.xml文件，这个文件需要放在 android/app/src/main/res/layout下，如果没有layout文件，你就要新建一个layout文件并把xml文件放进去；另外，你还要在res目录下新建一个 drawable-xhdpi文件夹，里面放你想要在初始加载的时候展示的图片，图片的名称要为launch_screen.png；如果不是这样设置的就回出现各种不懂得bug，都是因为这个文件导致的，比如说could not create deotory；还有就是java.io.Exception,还有一个是aapt，说Java的sdk爆炸了，其实根源都在这里。</div></pre></td></tr></table></figure>
 <p>这是你的launch_xml文件<br>``&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</p>
 <p><linearlayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/launch_screen"><br></linearlayout>`</p>
 <p>如果这些都设置好之后，在你的APPRegistry的类中设置，加载render之前运行这个</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">componentDidMount() &#123;</div><div class="line">     // do anything while splash screen keeps, use await to wait for an async task.</div><div class="line">       SplashScreen.hide();//关闭启动屏幕</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
 <p>iOS： iOS可以通过LaunchImage或LaunchScreen.xib来自定义你的启动屏幕</p>
+<p>转载请注明转载源地址：<a href="http://blog.csdn.net/sinat_37059404/article/details/72729694" target="_blank" rel="external">http://blog.csdn.net/sinat_37059404/article/details/72729694</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/06/16/react-native-splash-screen的心酸历程/" data-id="cj3ziqesz00005kfz4e9wwf64" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/06/16/react-native-splash-screen的心酸历程/" data-id="cj4225t4a0000t4fz96oudo5r" class="article-share-link">Share</a>
       
       
     </footer>
