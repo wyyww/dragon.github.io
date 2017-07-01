@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
+    <title><![CDATA[我的博客只差一个域名了]]></title>
     <url>%2F2017%2F06%2F29%2FNew%20Document%2F</url>
-    <content type="text"><![CDATA[这是主要的标题你好啊 就 发呆 地方]]></content>
+    <content type="text"><![CDATA[hexo+github pages+阿里云创建一个新的博客文1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment 你是一个很棒棒的也很胖胖的人]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[react-native-baidu-map在react-native中的使用]]></title>
@@ -32,10 +38,10 @@
     <url>%2F2017%2F06%2F16%2Fhello-world%2F</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
       <categories>
-        <category>hello</category>
+        <category>hexo</category>
       </categories>
       <tags>
-        <tag>hello</tag>
+        <tag>hexo</tag>
       </tags>
   </entry>
 </search>
