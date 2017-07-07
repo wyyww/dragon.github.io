@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/07/07/npm%E5%8C%85/</loc>
+    <lastmod>2017-07-07T00:22:18.882Z</lastmod>
+    <data>
+        <display>
+        <title>如何使用命令行查看使用npm全局安装的包</title>
+        <pubTime>2017-07-07T00:20:30.155Z</pubTime>
+        
+        <tag>npm</tag>
+         
+         
+           
+             
+              <breadCrumb title="node" url="http://yoursite.com/categories/node/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/07/05/osi/</loc>
     <lastmod>2017-07-05T10:08:06.838Z</lastmod>
     <data>
