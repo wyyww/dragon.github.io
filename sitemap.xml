@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2017/07/27/binary_tree_traversal/</loc>
+    
+    <lastmod>2017-07-27T07:45:03.644Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2017/07/25/binary_tree/</loc>
     
     <lastmod>2017-07-25T01:37:11.554Z</lastmod>
