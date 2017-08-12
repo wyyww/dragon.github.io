@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="作用域," />
 
 
 
@@ -93,15 +93,17 @@
 
 
 
-<meta name="description" content="welcome to my blog!!">
-<meta property="og:type" content="website">
-<meta property="og:title" content="wenguolong">
-<meta property="og:url" content="http://yoursite.com/archives/2017/page/2/index.html">
+<meta name="description" content="个人理解：执行环境的概念：每个函数在调用的时候会创建一个自己的执行环境。当执行流进入一个函数的时候，函数的环境就会被推入一个环境栈，而在函数执行之后，栈将其执行环境弹出，并将控制权移交给之前的执行环境。执行环境定义了变量和函数有权访问的其他数据，并定义了他们各自的行为； 变量对象：当函数被调用的时候，每个执行环境都会有一个与之相关的变量对象，环境中定义的所有变量和对象都保存在这个对象。 变量对象(">
+<meta name="keywords" content="作用域">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript中作用域链和执行环境的理解">
+<meta property="og:url" content="http://yoursite.com/2017/08/12/javascript中作用域链和执行环境的理解/index.html">
 <meta property="og:site_name" content="wenguolong">
-<meta property="og:description" content="welcome to my blog!!">
+<meta property="og:description" content="个人理解：执行环境的概念：每个函数在调用的时候会创建一个自己的执行环境。当执行流进入一个函数的时候，函数的环境就会被推入一个环境栈，而在函数执行之后，栈将其执行环境弹出，并将控制权移交给之前的执行环境。执行环境定义了变量和函数有权访问的其他数据，并定义了他们各自的行为； 变量对象：当函数被调用的时候，每个执行环境都会有一个与之相关的变量对象，环境中定义的所有变量和对象都保存在这个对象。 变量对象(">
+<meta property="og:updated_time" content="2017-08-12T09:01:59.070Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="wenguolong">
-<meta name="twitter:description" content="welcome to my blog!!">
+<meta name="twitter:title" content="javascript中作用域链和执行环境的理解">
+<meta name="twitter:description" content="个人理解：执行环境的概念：每个函数在调用的时候会创建一个自己的执行环境。当执行流进入一个函数的时候，函数的环境就会被推入一个环境栈，而在函数执行之后，栈将其执行环境弹出，并将控制权移交给之前的执行环境。执行环境定义了变量和函数有权访问的其他数据，并定义了他们各自的行为； 变量对象：当函数被调用的时候，每个执行环境都会有一个与之相关的变量对象，环境中定义的所有变量和对象都保存在这个对象。 变量对象(">
 
 
 
@@ -129,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2017/page/2/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/12/javascript中作用域链和执行环境的理解/"/>
 
 
 
 
 
-  <title>归档 | wenguolong</title>
+  <title>javascript中作用域链和执行环境的理解 | wenguolong</title>
   
 
 
@@ -160,7 +162,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -298,255 +300,235 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 16 篇日志。 继续努力。
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/12/javascript中作用域链和执行环境的理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="闻国龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wenguolong">
     </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">javascript中作用域链和执行环境的理解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-12T17:00:04+08:00">
+                2017-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/08/12/javascript中作用域链和执行环境的理解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
 
       
       
-      
 
+      
+        <h2 id="个人理解："><a href="#个人理解：" class="headerlink" title="个人理解："></a>个人理解：</h2><p><strong>执行环境的概念</strong>：每个函数在调用的时候会创建一个自己的执行环境。当执行流进入一个函数的时候，函数的环境就会被推入一个环境栈，而在函数执行之后，栈将其执行环境弹出，并将控制权移交给之前的执行环境。执行环境定义了变量和函数有权访问的其他数据，并定义了他们各自的行为；</p>
+<p><strong>变量对象</strong>：当函数被调用的时候，每个执行环境都会有一个与之相关的变量对象，环境中定义的所有变量和对象都保存在这个对象。</p>
+<p>变量对象(variable object) 是与执行上下文相关的 数据作用域(scope of data) 。 它是与上下文关联的特殊对象，用于存储被定义在上下文中的 变量(variables) 和 函数声明(function declarations) 。 它是一个抽象的概念，不同的上下文中，它表示使用不同的object。例如，在global全局上下文中，变量对象也是全局对象自身[global object]。（这就是我们可以通过全局对象的属性来指向全局变量）。</p>
+<p><strong>作用域链</strong>：在一个函数被创建的时候，会创建一个预先包含全局变量对象的作用域链，并把这个作用域链保存于内部的【Scope】属性中；所以说创建任何一个函数的时候就会创建包含全局变量对象的作用域链；<br>当函数第一次被调用的时候，会创建一个执行环境以及相应的作用域链，然后通过复制函数的【scope】属性中的对象构建起执行环境的作用域链，然后又有一个活动对象（这里作为变量对象）被创建并被推入执行环境作用域链的前端，最后使用this，arguments，和其他命名参数来初始化函数活动对象（如果是函数，则将其活动对象作为变量对象）；</p>
+<p><strong>性质</strong>：1，作用域链的前端始终都是当前执行代码所在环境的变量对象<br>            2，全局执行环境的的变量对象之中都是作用域链的最后一个变量对象；<br>            3，作用域链的作用在于保证对执行环境中有权访问的所有变量和函数的顺序访问；<br>            4，内部环境变量可以通过作用域链访问所有的外部环境，但是外部环境不能访问内部环境的任何变量和函数；<br>            5，作用域链本质是一个指向变量对象的指针列表，他只引用但不实际包含变量对象。</p>
+<p>度娘精选：<br><strong>执行上下文栈</strong>：注意，一个function可能产生无限的上下文环境，因为一个函数的调用（甚至递归）都产生了一个新的上下文环境。</p>
+<p>一系列活动的执行上下文从逻辑上形成一个栈。<strong>栈底总是全局上下文</strong>，栈顶是当前（活动的）执行上下文。当在不同的执行上下文间切换（退出的而进入新的执行上下文）的时候，栈会被修改（通过压栈或者退栈的形式）。</p>
+<p>当javascript代码文件被浏览器载入后，默认最先进入的是一个<strong>全局的执行上下文</strong>。当在全局上下文中调用执行一个函数时，程序流就进入该被调用函数内，此时引擎就会为该函数创建一个新的执行上下文，并且将其压入到执行上下文堆栈的顶部。浏览器总是执行当前在堆栈顶部的上下文，一旦执行完毕，该上下文就会从堆栈顶部被弹出，然后，进入其下的上下文执行代码。这样，堆栈中的上下文就会被依次执行并且弹出堆栈，直到回到全局的上下文。</p>
+<p><strong>执行上下文</strong>：也称为执行环节，一个执行的上下文可以抽象的理解为object。每一个执行的上下文都有一系列的属性（我们称为上下文状态），他们用来追踪关联代码的执行进度。主要有三个属性：变量对象(variable object)，this指针(this value)，作用域链(scope chain)。</p>
+<p><strong>活动对象</strong><br>当函数被调用者激活，这个特殊的活动对象(activation object) 就被创建了。它包含普通参数(formal parameters) 与特殊参数(arguments)对象(具有索引属性的参数映射表)。活动对象在函数上下文中作为变量对象使用。</p>
+<p>即：函数的变量对象保持不变，但除去存储变量与函数声明之外，还包含以及特殊对象arguments 。</p>
+<p><strong>作用域链优化</strong>：　从作用域链的结构可以看出，在运行期上下文的作用域链中，标识符所在的位置越深，读写速度就会越慢。因为全局变量总是存在于运行期上下文作用域链的最末端，因此在标识符解析的时候，查找全局变量是最慢的。所以，在编写代码的时候应尽量少使用全局变量，尽可能使用局部变量。一个好的经验法则是：如果一个跨作用域的对象被引用了一次以上，则先把它存储到局部变量里再使用。</p>
+
+      
+    </div>
+
+    <div>
       
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/IMG_20170702_170952.jpg" alt="闻国龙 WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
       
       
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/IMG_20170702_170831.jpg" alt="闻国龙 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
 
       
+    </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
+    <div>
+      
         
-            <a class="post-title-link" href="/2017/07/05/osi/" itemprop="url">
-              
-                <span itemprop="name">计算机网络中OSI七层模型各层的功能</span>
-              
-            </a>
-        
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-05T18:06:12+08:00"
-              content="2017-07-05" >
-          07-05
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/作用域/" rel="tag"># 作用域</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/12/事件委托和事件代理/" rel="next" title="事件代理和事件委托">
+                <i class="fa fa-chevron-left"></i> 事件代理和事件委托
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
+    <div class="post-spread">
       
-      
-      
+          <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-renren"><p>人人网</p></li>
+        <li class="-mob-share-kaixin"><p>开心网</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=1f1b2255a6b96"></script>
+<!--MOB SHARE END-->
 
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/03/hexo-domain/" itemprop="url">
-              
-                <span itemprop="name">如何使用hexo，github和注册域名搭建个人博客系统</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-03T18:19:21+08:00"
-              content="2017-07-03" >
-          07-03
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
 
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/07/02/domain-name-server/" itemprop="url">
-              
-                <span itemprop="name">免费打造个人网站，免费域名，免费空间，ftp使用，数据库等，免费就能搭建个人网站</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-02T11:19:23+08:00"
-              content="2017-07-02" >
-          07-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/20/react-native-baidu-map在react-native中的使用/" itemprop="url">
-              
-                <span itemprop="name">react-native-baidu-map在react-native中的使用</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-20T15:04:45+08:00"
-              content="2017-06-20" >
-          06-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/20/react-native-splash-screen的心酸历程/" itemprop="url">
-              
-                <span itemprop="name">react-native-splash-screen的心酸历程</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-20T13:12:40+08:00"
-              content="2017-06-20" >
-          06-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/06/16/hello-world/" itemprop="url">
-              
-                <span itemprop="name">hexo基础操作</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-06-16T14:06:32+08:00"
-              content="2017-06-16" >
-          06-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2017/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2017/">1</a><span class="page-number current">2</span>
-  </nav>
-
-
+    </div>
+  </div>
 
 
           </div>
@@ -554,6 +536,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
 
         </div>
         
@@ -573,8 +561,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -636,6 +633,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#个人理解："><span class="nav-number">1.</span> <span class="nav-text">个人理解：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -749,11 +762,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   

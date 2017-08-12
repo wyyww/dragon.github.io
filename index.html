@@ -310,6 +310,758 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/12/javascript中作用域链和执行环境的理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="闻国龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wenguolong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/12/javascript中作用域链和执行环境的理解/" itemprop="url">javascript中作用域链和执行环境的理解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-12T17:00:04+08:00">
+                2017-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="个人理解："><a href="#个人理解：" class="headerlink" title="个人理解："></a>个人理解：</h2><p><strong>执行环境的概念</strong>：每个函数在调用的时候会创建一个自己的执行环境。当执行流进入一个函数的时候，函数的环境就会被推入一个环境栈，而在函数执行之后，栈将其执行环境弹出，并将控制权移交给之前的执行环境。执行环境定义了变量和函数有权访问的其他数据，并定义了他们各自的行为；</p>
+<p><strong>变量对象</strong>：当函数被调用的时候，每个执行环境都会有一个与之相关的变量对象，环境中定义的所有变量和对象都保存在这个对象。</p>
+<p>变量对象(variable object) 是与执行上下文相关的 数据作用域(scope of data) 。 它是与上下文关联的特殊对象，用于存储被定义在上下文中的 变量(variables) 和 函数声明(function declarations) 。 它是一个抽象的概念，不同的上下文中，它表示使用不同的object。例如，在global全局上下文中，变量对象也是全局对象自身[global object]。（这就是我们可以通过全局对象的属性来指向全局变量）。</p>
+<p><strong>作用域链</strong>：在一个函数被创建的时候，会创建一个预先包含全局变量对象的作用域链，并把这个作用域链保存于内部的【Scope】属性中；所以说创建任何一个函数的时候就会创建包含全局变量对象的作用域链；<br>当函数第一次被调用的时候，会创建一个执行环境以及相应的作用域链，然后通过复制函数的【scope】属性中的对象构建起执行环境的作用域链，然后又有一个活动对象（这里作为变量对象）被创建并被推入执行环境作用域链的前端，最后使用this，arguments，和其他命名参数来初始化函数活动对象（如果是函数，则将其活动对象作为变量对象）；</p>
+<p><strong>性质</strong>：1，作用域链的前端始终都是当前执行代码所在环境的变量对象<br>            2，全局执行环境的的变量对象之中都是作用域链的最后一个变量对象；<br>            3，作用域链的作用在于保证对执行环境中有权访问的所有变量和函数的顺序访问；<br>            4，内部环境变量可以通过作用域链访问所有的外部环境，但是外部环境不能访问内部环境的任何变量和函数；<br>            5，作用域链本质是一个指向变量对象的指针列表，他只引用但不实际包含变量对象。</p>
+<p>度娘精选：<br><strong>执行上下文栈</strong>：注意，一个function可能产生无限的上下文环境，因为一个函数的调用（甚至递归）都产生了一个新的上下文环境。</p>
+<p>一系列活动的执行上下文从逻辑上形成一个栈。<strong>栈底总是全局上下文</strong>，栈顶是当前（活动的）执行上下文。当在不同的执行上下文间切换（退出的而进入新的执行上下文）的时候，栈会被修改（通过压栈或者退栈的形式）。</p>
+<p>当javascript代码文件被浏览器载入后，默认最先进入的是一个<strong>全局的执行上下文</strong>。当在全局上下文中调用执行一个函数时，程序流就进入该被调用函数内，此时引擎就会为该函数创建一个新的执行上下文，并且将其压入到执行上下文堆栈的顶部。浏览器总是执行当前在堆栈顶部的上下文，一旦执行完毕，该上下文就会从堆栈顶部被弹出，然后，进入其下的上下文执行代码。这样，堆栈中的上下文就会被依次执行并且弹出堆栈，直到回到全局的上下文。</p>
+<p><strong>执行上下文</strong>：也称为执行环节，一个执行的上下文可以抽象的理解为object。每一个执行的上下文都有一系列的属性（我们称为上下文状态），他们用来追踪关联代码的执行进度。主要有三个属性：变量对象(variable object)，this指针(this value)，作用域链(scope chain)。</p>
+<p><strong>活动对象</strong><br>当函数被调用者激活，这个特殊的活动对象(activation object) 就被创建了。它包含普通参数(formal parameters) 与特殊参数(arguments)对象(具有索引属性的参数映射表)。活动对象在函数上下文中作为变量对象使用。</p>
+<p>即：函数的变量对象保持不变，但除去存储变量与函数声明之外，还包含以及特殊对象arguments 。</p>
+<p><strong>作用域链优化</strong>：　从作用域链的结构可以看出，在运行期上下文的作用域链中，标识符所在的位置越深，读写速度就会越慢。因为全局变量总是存在于运行期上下文作用域链的最末端，因此在标识符解析的时候，查找全局变量是最慢的。所以，在编写代码的时候应尽量少使用全局变量，尽可能使用局部变量。一个好的经验法则是：如果一个跨作用域的对象被引用了一次以上，则先把它存储到局部变量里再使用。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/12/事件委托和事件代理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="闻国龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wenguolong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/12/事件委托和事件代理/" itemprop="url">事件代理和事件委托</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-12T16:59:46+08:00">
+                2017-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>如今的JavaScript技术界里最火热的一项技术应该是‘事件委托(event delegation)’了。使用事件委托技术能让你避免对特定的每个节点添加事件监听器；相反，事件监听器是被添加到它们的父元素上。事件监听器会分析从子元素冒泡上来的事件，找到是哪个子元素的事件。基本概念非常简单，但仍有很多人不理解事件委托的工作原理。这里我将要解释事件委托是如何工作的，并提供几个纯JavaScript的基本事件委托的例子。</p>
+<p>假定我们有一个UL元素，它有几个子元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;ul id=&quot;parent-list&quot;&gt;</div><div class="line">	&lt;li id=&quot;post-1&quot;&gt;Item 1&lt;/li&gt;</div><div class="line">	&lt;li id=&quot;post-2&quot;&gt;Item 2&lt;/li&gt;</div><div class="line">	&lt;li id=&quot;post-3&quot;&gt;Item 3&lt;/li&gt;</div><div class="line">	&lt;li id=&quot;post-4&quot;&gt;Item 4&lt;/li&gt;</div><div class="line">	&lt;li id=&quot;post-5&quot;&gt;Item 5&lt;/li&gt;</div><div class="line">	&lt;li id=&quot;post-6&quot;&gt;Item 6&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div></pre></td></tr></table></figure>
+<p>我们还假设，当每个子元素被点击时，将会有各自不同的事件发生。你可以给每个独立的li元素添加事件监听器，但有时这些li元素可能会被删除，可能会有新增，监听它们的新增或删除事件将会是一场噩梦，尤其是当你的监听事件的代码放在应用的另一个地方时。但是，如果你将监听器安放到它们的父元素上呢？你如何能知道是那个子元素被点击了？</p>
+<p>简单：当子元素的事件冒泡到父ul元素时，你可以检查事件对象的target属性，捕获真正被点击的节点元素的引用。下面是一段很简单的JavaScript代码，演示了事件委托的过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// 找到父元素，添加监听器...</div><div class="line">document.getElementById(&quot;parent-list&quot;).addEventListener(&quot;click&quot;,function(e) &#123;</div><div class="line">	// e.target是被点击的元素!</div><div class="line">	// 如果被点击的是li元素</div><div class="line">	if(e.target &amp;&amp; e.target.nodeName == &quot;LI&quot;) &#123;</div><div class="line">		// 找到目标，输出ID!</div><div class="line">		console.log(&quot;List item &quot;,e.target.id.replace(&quot;post-&quot;),&quot; was clicked!&quot;);</div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>第一步是给父元素添加事件监听器。当有事件触发监听器时，检查事件的来源，排除非li子元素事件。如果是一个li元素，我们就找到了目标！如果不是一个li元素，事件将被忽略。这个例子非常简单，UL和li是标准的父子搭配。让我们试验一些差异比较大的元素搭配。假设我们有一个父元素div，里面有很多子元素，但我们关心的是里面的一个带有”classA” CSS类的A标记：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">// 获得父元素DIV, 添加监听器...</div><div class="line">document.getElementById(&quot;myDiv&quot;).addEventListener(&quot;click&quot;,function(e) &#123;</div><div class="line">	// e.target是被点击的元素</div><div class="line">	if(e.target &amp;&amp; e.target.nodeName == &quot;A&quot;) &#123;</div><div class="line">		// 获得CSS类名</div><div class="line">		var classes = e.target.className.split(&quot; &quot;);</div><div class="line">		// 搜索匹配!</div><div class="line">		if(classes) &#123;</div><div class="line">			// For every CSS class the element has...</div><div class="line">			for(var x = 0; x &lt; classes.length; x++) &#123;</div><div class="line">				// If it has the CSS class we want...</div><div class="line">				if(classes[x] == &quot;classA&quot;) &#123;</div><div class="line">					// Bingo!</div><div class="line">					console.log(&quot;Anchor element clicked!&quot;);</div><div class="line"></div><div class="line">					// Now do something here....</div><div class="line"></div><div class="line">				&#125;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>通过上面的介绍，大家应该能够体会到使用事件委托对于web应用程序带来的几个优点：</p>
+<p>1.管理的函数变少了。不需要为每个元素都添加监听函数。对于同一个父节点下面类似的子元素，可以通过委托给父元素的监听函数来处理事件。</p>
+<p>2.可以方便地动态添加和修改元素，不需要因为元素的改动而修改事件绑定。</p>
+<p>3.JavaScript和DOM节点之间的关联变少了，这样也就减少了因循环引用而带来的内存泄漏发生的概率。</p>
+<p>写到这里，突然想起了之前对于Dojo DataGrid的困惑：那么多的rows和cells，如何处理他们事件之间的关系。现在想想，使用委托就很简单了。所有的事件委托到grid最外层的节点上，当事件发生的时候通过一些方法来获取和添加事件的额外属性，如rowIndex, cellIndex，之后在分配到onRowClick,onCellClick之类的处理函数上。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/12/javascript中线程和定时器的理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="闻国龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wenguolong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/12/javascript中线程和定时器的理解/" itemprop="url">javascript中set Timeout和set Interval之间的爱恨情仇</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-12T16:59:32+08:00">
+                2017-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>javascript定时器是一个比较喜欢欺骗别人的东西，不按套路出牌<br>在之前的认知当中，我们都是认为javascript的定时器是当运行到该定时器的执行代码的时候，该定时器的代码就会执行；但是你会发现；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">div.onclick = function()&#123;</div><div class="line">　　setTimeout(function() &#123;</div><div class="line"> 　　     document.getElementById(&apos;inputField&apos;).focus();</div><div class="line"> 　　&#125;, 0);</div><div class="line">  &#125;;</div></pre></td></tr></table></figure>
+<p>突然出现了一个间隔时间为0，很蒙圈，那还需要定时器有什么用呢；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">setTimeout(function() &#123;</div><div class="line"></div><div class="line">　　while (true) &#123;</div><div class="line"></div><div class="line">　　&#125;</div><div class="line"></div><div class="line">　　&#125;, 100);</div><div class="line"></div><div class="line">　　setTimeout(function() &#123;</div><div class="line"></div><div class="line">　　     alert(&apos;你好!&apos;);</div><div class="line"></div><div class="line">　　&#125;, 200);</div><div class="line"></div><div class="line">　　setInterval(callbackFunction, 200);</div></pre></td></tr></table></figure>
+<p>在这里，你发现第一个定时器中的循环让代码出现要给死循环；之后应该运行alert和callbackFn，但是事实上这两个都没有如期出现；javascript定时器很让人着迷啊；</p>
+<p>   <strong>事实在于:javascript中，程序都是单线程运行的，浏览器不管在什么时候始终都只有一个线程在运行javascript程序；javascript是单线程运用；</strong></p>
+<p>那么浏览器又是如何处理单线程问题的呢？<br>     在浏览器中允许多个线程异步执行，这些线程在内核的控制下相互配合有保持同步；对于浏览器中的js引擎来说，它是基于事件驱动的，从代码的角度来说，各种任务都是回掉函数，javascript引擎一直在等待着事件任务队列中任务的到来；由于javascript是单线程运行的，所有处在队列中的事件需要排队等候；一个一个被浏览器所执行；</p>
+<p> <strong>js定时触发的线程：</strong><br>          注意这里的浏览器模型定时计数器并不是由JavaScript引擎计数的,因为JavaScript引擎是单线程的,如果处于阻塞线程状态就计不了时,它必须依赖外部来计时并触发定时,所以队列中的定时事件也是异步事件.</p>
+<p>　　由图可知,在这t1的时间段内,继鼠标点击事件触发后,先前已设置的setTimeout定时也到达了,此刻对JavaScript引擎来说,定时触发线程产生了一个异步定时事件并放到任务队列中, 该事件被排到点击事件回调之后,等待处理.</p>
+<p>　　同理, 还是在t1时间段内,接下来某个setInterval定时器也被添加了,由于是间隔定时,在t1段内连续被触发了两次,这两个事件被排到队尾等待处理.</p>
+<p>　　可见,假如时间段t1非常长,远大于setInterval的定时间隔,那么定时触发线程就会源源不断的产生异步定时事件并放到任务队列尾而不管它们是否已被处理,但一旦t1和最先的定时事件前面的任务已处理完,这些排列中的定时事件就依次不间断的被执行,这是因为,对于JavaScript引擎来说,在处理队列中的各任务处理方式都是一样的,只是处理的次序不同而已.</p>
+<p>　　t1过后,也就是说当前处理的任务已返回,JavaScript引擎会检查任务队列,发现当前队列非空,就取出t2下面对应的任务执行,其它时间依此类推,由此看来:</p>
+<p><strong>javascript的单线程：如果队列非空,引擎就从队列头取出一个任务,直到该任务处理完,即返回后引擎接着运行下一个任务,在任务没返回前队列中的其它任务是没法被执行的.</strong><br>单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。</p>
+<p>如果你在javascript代码中插入一个setTimeout，并且设置时间为0；只是代表这个任务会被立刻插入到队列中，但不是立即执行；所以javascript中的定时器可能会出现不按预想中的那样执行的效果；<br>一般来说定时器是最后执行的代码；<br><strong>定时器最重要的是： 指定的时间间隔表示何时将定时器的代码添加到队列中，而不是何时执行代码；</strong><br>      当使用setInterval时，仅当没有定时器的任何其它代码时，才将定时器代码添加到队列中，这样会确保定时器代码加入到队列的时间的间隔是为指定的间隔，请注意这只是加入队列的时间间隔，并不是执行代码的时间间隔，所以使用setInterval还是会存在两个问题：<br>     <strong>（1）某些间隔会被跳过了</strong><br>      <strong>（2）多个定时器的代码执行间隔可能会比预期的要小。</strong><br>     注意：最好不要使用setInterval，尽量使用setTimeout的延时递归来代替setInterval<br>     因为使用setInterval来进行回掉容易产生回掉堆积，特别是时间非常短的时候；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function Timer() &#123;</div><div class="line">  this.s1 = 0;</div><div class="line">  this.s2 = 0;</div><div class="line">  // 箭头函数</div><div class="line">  setInterval(() =&gt; this.s1++, 1000);</div><div class="line">  // 普通函数</div><div class="line">  setInterval(function () &#123;</div><div class="line">  this.s2++;</div><div class="line">  &#125;, 1000);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var timer = new Timer();</div><div class="line"></div><div class="line">setTimeout(() =&gt; console.log(&apos;s1: &apos;, timer.s1), 3000);</div><div class="line">setTimeout(() =&gt; console.log(&apos;s2: &apos;, timer.s2), 3000);</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/12/闭包的理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="闻国龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wenguolong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/12/闭包的理解/" itemprop="url">javascript中闭包的理解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-12T16:57:01+08:00">
+                2017-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>闭包</strong>：指有权访问另一个函数作用域中的变量的函数。</p>
+<pre><code>闭包是指这样的作用域，它包含有一个函数，这个函数可以调用被这个作用域所封闭的变量、函数或者闭包等内容。通常我们通过闭包所对应的函数来获得对闭包的访问。
+</code></pre><h2 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function init() &#123;</div><div class="line">  let name = &quot;Mozilla&quot;; </div><div class="line">  // name 是一个被init创建的局部变量</div><div class="line">  function displayName() &#123; </div><div class="line">  // displayName() 是一个内部函数,</div><div class="line">      alert(name); </div><div class="line">      //  一个闭包使用在父函数中声明的变量</div><div class="line">      //注意，不要误认为闭包一定是被返回的函数，只要可以调用另外一个函数作用域的变量的函数就叫做闭包。</div><div class="line">  &#125; </div><div class="line">  displayName();</div><div class="line">&#125;</div><div class="line">init();</div></pre></td></tr></table></figure>
+<p>函数 init() 创建了一个局部变量 name和一个名为 displayName() 的函数。 displayName() 是一个内部函数——定义于 init() 之内且仅在该函数体内可用。displayName() 没有任何自己的局部变量，然而它可以访问到外部函数的变量，即可以使用父函数 init() 中声明的 name 变量。</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function makeFunc() &#123;</div><div class="line">  var name = &quot;Mozilla&quot;;</div><div class="line">  function displayName() &#123;</div><div class="line">    alert(name);</div><div class="line">  &#125;</div><div class="line">  return displayName;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var myFunc = makeFunc();</div><div class="line">myFunc();</div></pre></td></tr></table></figure>
+<p>运行这段代码的效果和之前的 init() 示例完全一样：字符串 “Mozilla” 将被显示在一个 JavaScript 警告框中。其中的不同 — 也是有意思的地方 — 在于 displayName() 内部函数在执行前被从其外围函数中返回了。</p>
+<p>这段代码看起来别扭却能正常运行。在一些编程语言中，函数中的局部变量仅在函数的执行期间可用。一旦 makeFunc() 执行过后，我们会很合理的认为 name 变量将不再可用。然而，因为代码运行的没问题，所以很显然在 JavaScript 中并不是这样的。</p>
+<p>这个谜题的答案是 myFunc 变成一个 闭包 了。 闭包是一种特殊的对象。它由两部分构成：函数，以及创建该函数的环境。环境由闭包创建时在作用域中的任何局部变量组成。在我们的例子中，myFunc 是一个闭包，由 displayName 函数和闭包创建时存在的 “Mozilla” 字符串形成。</p>
+<h2 id="闭包的用处"><a href="#闭包的用处" class="headerlink" title="闭包的用处"></a>闭包的用处</h2><p>1，闭包可以访问当前函数以外的变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function getOuter()&#123;</div><div class="line">  var date = &apos;815&apos;;</div><div class="line">  function getDate(str)&#123;</div><div class="line">    console.log(str + date);  //访问外部的date</div><div class="line">  &#125;</div><div class="line">  return getDate(&apos;今天是：&apos;); //&quot;今天是：815&quot;</div><div class="line">&#125;</div><div class="line">getOuter();</div><div class="line">getDate是一个闭包，该函数执行时，会形成一个作用域A，A中并没有定义变量date，但它能在父一级作用域中找到该变量的定义。</div></pre></td></tr></table></figure>
+<p>2、即使外部函数已经返回，闭包仍能访问外部函数定义的变量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function getOuter()&#123;</div><div class="line">  var date = &apos;815&apos;;</div><div class="line">  function getDate(str)&#123;</div><div class="line">    console.log(str + date);  //访问外部的date</div><div class="line">  &#125;</div><div class="line">  return getDate;     //外部函数返回</div><div class="line">&#125;</div><div class="line">var today = getOuter();</div><div class="line">today(&apos;今天是：&apos;);   //&quot;今天是：815&quot;</div><div class="line">today(&apos;明天不是：&apos;);   //&quot;明天不是：815&quot;</div></pre></td></tr></table></figure>
+<p>3、闭包可以更新外部变量的值（模拟私有方法）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function updateCount()&#123;</div><div class="line">  var count = 0;</div><div class="line">  function getCount(val)&#123;</div><div class="line">    count = val;</div><div class="line">    console.log(count);</div><div class="line">  &#125;</div><div class="line">  return getCount;     //外部函数返回</div><div class="line">&#125;</div><div class="line">var count = updateCount();</div><div class="line">count(815); //815</div><div class="line">count(816); //816</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/12/JS 中setTimeout和set Interval之间的爱恨情仇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="闻国龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wenguolong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/12/JS 中setTimeout和set Interval之间的爱恨情仇/" itemprop="url">setTimeout和setInterval之间的爱恨情仇</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-12T16:55:07+08:00">
+                2017-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在说起javascript中定时器的问题，需要事先明确这样几个概念：</p>
+<p>1，setTimeout：setTimeout() 方法用于在指定的毫秒数后调用函数或计算表达式,<br>2，setInterval:  setInterval()则是在每隔指定的毫秒数循环调用函数或表达式，直到clearInterval把它清除；<br>3，clearInterval: setInterval定时器在执行之后会返回一个对应的定时器ID，可以通过clearInterval（ID）删除定时器的执行<br>4，clearTimeout： set Timeout定时器在执行之后也会返回一个对应的定时器ID，通过clearTimeout就可以删除对应的定时器执行</p>
+<h2 id="JS中的事件循环机制机制："><a href="#JS中的事件循环机制机制：" class="headerlink" title="JS中的事件循环机制机制："></a>JS中的事件循环机制机制：</h2><p>浏览器（或者说JS引擎）执行JS的机制是基于事件循环。<br>由于JS是单线程，所以同一时间只能执行一个任务，其他任务就得排队，后续任务必须等到前一个任务结束才能开始执行。</p>
+<p>同步任务直接在主线程队列中顺序执行，而<strong>异步任务会进入另一个任务队列，不会阻塞主线程</strong>。等到主线程队列空了（执行完了）的时候，就会去异步队列查询是否有可执行的异步任务了（异步任务通常进入异步队列之后还要等一些条件才能执行，如ajax请求、文件读写），如果某个异步任务可以执行了便加入主线程队列，以此循环。</p>
+<p>在JS中，这个任务队列是一个包含各种消息的消息队列，这些消息就是注册异步事件的时候添加的回掉函数；  然而JS主线程只负责一件事情，那就是从消息队列中取消息，执行消息，在取消息，执行消息；当消息队列为空的时候，就会等待消息队列为非空的时候取消息，而且主线程只有在当前的消息执行完毕之后才会去取下一个消息执行；这种机制就叫做事件循环机制，</p>
+<h2 id="三、JS定时器的工作原理"><a href="#三、JS定时器的工作原理" class="headerlink" title="三、JS定时器的工作原理"></a>三、JS定时器的工作原理</h2><p>（扣别人的）</p>
+<p>在解释上面问题的答案之前我们先来了解一下定时器的工作原理，这里将用引用How JavaScript Timers Work中的例子来解释定时器的工作原理，该图为一个简单版的原理图。<br><img src="http://img.blog.csdn.net/20170810143227974?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="JS事件循环机制"></p>
+<p>上图中，左侧数字代表时间，单位毫秒；左侧文字代表某一个操作完成后，浏览器去询问当前队列中存在哪些正在等待执行的操作；蓝色方块表示正在执行的代码块；右侧文字代表在代码运行过程中，出现哪些异步事件。该图大致流程如下：</p>
+<p>程序开始时，有一个JS代码块开始执行，执行时长约为18ms，在执行过程中有3个异步事件触发，其中包括一个setTimeout、鼠标点击事件、setInterval<br>第一个setTimeout先运行，延迟时间为10ms，稍后鼠标事件出现，浏览器在事件队列中插入点击的回调函数，稍后setInterval运行，10ms到达之后，setTimeout向事件队列中插入setTimeout的回调<br>当第一个代码块执行完成后，浏览器查看队列中有哪些事件在等待，他取出排在队列最前面的代码来执行<br>在浏览器处理鼠标点击回调时，setInterval再次检查到到达延迟时间，他将再次向事件队列中插入一个interval的回调，以后每隔指定的延迟时间之后都会向队列中插入一个回调<br>后面浏览器将在执行完当前队头的代码之后，将再次取出目前队头的事件来执行<br>这里只是对定时器的原理做一个简单版的描述，实际的处理过程比这个复杂。</p>
+<h2 id="定时器的用法："><a href="#定时器的用法：" class="headerlink" title="定时器的用法："></a>定时器的用法：</h2><p>setTimeOut用法<br>setTimeout函数的用法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var timeoutID = window.setTimeout(func, [delay, param1, param2, ...]); </div><div class="line">var timeoutID = window.setTimeout(code, [delay]); </div><div class="line">timeoutID：定时器ID号，它可以在clearTimeout()函数中被用来清除定时器。</div><div class="line"></div><div class="line">func：被执行的函数。</div><div class="line"></div><div class="line">code：（替代的语法）一个被执行的代码串。</div><div class="line"></div><div class="line">delay：延迟的时间，单位毫秒。如果没有指定，默认为0。</div></pre></td></tr></table></figure>
+<p>我们可以使用window.setTimeout或setTimeout，两个写法基本一样，只不过window.setTimeout将setTimeout函数作为全局window对象的一个属性来引用。</p>
+<p>应用示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function timeout()&#123; </div><div class="line">    document.getElementById(&apos;res&apos;).innerHTML=Math.floor(Math.random()*100 + 1); </div><div class="line">&#125; </div><div class="line">setTimeout(&quot;timeout()&quot;,5000); </div><div class="line">代码执行时，5秒后调用timeout()函数</div></pre></td></tr></table></figure>
+<p>setInterval用法<br>setInterval函数的参数及用法和setTimeout函数一样，请参照上文的setTimeout函数的用法介绍。不同的是，setInterval每隔一定的时间执行当中的func或code代码。</p>
+<p>应用示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var tt = 10; </div><div class="line">function timego()&#123; </div><div class="line">    tt--; </div><div class="line">    document.getElementById(&quot;tt&quot;).innerHTML = tt; </div><div class="line">    if(tt==0)&#123;  </div><div class="line">        window.location.href=&apos;/&apos;; </div><div class="line">        return false; </div><div class="line">    &#125; </div><div class="line">&#125; </div><div class="line">var timer = window.setInterval(&quot;timego()&quot;,1000);</div></pre></td></tr></table></figure>
+<p>函数timego()定义了页面元素#tt显示的内容，当tt等于0时，页面定向到首页。然后我们定义一个定时器timer，使用setInterval()每隔1秒调用一次timego()。这样timego会执行10次，每次数字tt会减1，直到为0。那么如果想停止定时器，可以使用以下代码：</p>
+<p>window.clearInterval(timer);  </p>
+<h2 id="setTimeout和setnterval之间的区别："><a href="#setTimeout和setnterval之间的区别：" class="headerlink" title="setTimeout和setnterval之间的区别："></a>setTimeout和setnterval之间的区别：</h2><p>1，setTimeout在时间间隔之后将定时器插入到事件循环队列之中，若前面有执行时间较长的程序，可能会延迟执行；<br>2，set Interval按照时间间隔将定时器插入到循环队列之中，但是<strong>循环队列中某一时刻只能有一个定时器对象实例</strong>；因此在set Interval中存在以下两个问题：</p>
+<p><strong>（1）某些间隔会被跳过；</strong><br><strong>（2）多个定时器的代码执行之间的间隔可能比预期的小；</strong><br>3， setTimeout和setInterval的作用只是把你要执行的代码在你设定的一个时间点插入到引擎维护的一个消息队列中, 插入消息队列并不意味着你的代码就会立马执行的,理解这一点很重要</p>
+<p>对于set Timeout：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"> function click() &#123; </div><div class="line">    // code block1... </div><div class="line">    setTimeout(function() &#123; </div><div class="line">    // process ... </div><div class="line">    &#125;, 200); </div><div class="line">    // code block2 </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>假设我们给一个button的onclick事件绑定了此方法, 当我们按下按钮后, 肯定先执行block1的内容, 然后运行到setTimeout的地方, setTimeout会告诉浏览器说, “<strong>200ms后我会插一段要执行的代码给你的队列中</strong>“, 浏览器当然答应了(注意<strong>插入代码并不意味着立马执行</strong>), setTimeout代码运行后, 紧跟其后的block2代码开始执行, 这里就开始说明问题了, 如果block2的代码执行时间超过200ms, 那结果会是如何?</p>
+<p>或许按照你之前的理解, 会理所当然的认为200ms一到, 你的process代码会立马执行…事实是, <strong>在block2执行过程中(执行了200ms后)process代码被插入代码队列, 但一直要等click方法执行结束, 才会执行process代码段,</strong> 从代码队列上看process代码是在click后面的, 再加上js以单线程方式执行, 所以应该不难理解.</p>
+<p>如果是另一种情况, block2代码执行的时间&lt;200ms, setTimeout在200ms后将process代码插入到代码队列, 而那时执行线程可能已经处于空闲状态了(idle), 那结果就是200ms后, process代码插入队列就立马执行了, 就让你感觉200ms后, 就执行了.</p>
+<p>再看看setInterval ：它存在两个问题<br>    <strong>（1）某些间隔会被跳过；</strong><br>    <strong>（2）多个定时器的代码执行之间的间隔可能比预期的小；</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function click() &#123; </div><div class="line">    // code block1... </div><div class="line">    setInterval(function() &#123; </div><div class="line">    // process ... </div><div class="line">    &#125;, 200); </div><div class="line">    // code block2 </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>和上面一样我们假设通过一个click, 触发了setInterval以实现每隔一个时间段执行process代码<br>这里写图片描述<br><img src="http://img.blog.csdn.net/20170810145354649?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>比如onclick要300ms执行完, block1代码执行完, 在5ms时执行setInterval, 以此为一个时间点, 在205ms时插入process代码, click代码顺利结束, process代码开始执行(相当于图中的timer code), 然而process代码也执行了一个比较长的时间, 超过了接下来一个插入时间点405ms, 这样代码队列后又插入了一份process代码, process继续执行着, 而且超过了605ms这个插入时间点,</p>
+<p>下面问题来, 可能你还会认为代码队列后面又会继续插入一份process代码…真实的情况是,由于代码队列中已经<strong>有了一份未执行的process代码</strong>, 所以<strong>605ms这个插入时间点将会被“无情”的跳过</strong>, 因为js引擎只允许有一份未执行的process代码, 这里我想我们都明白了JS引擎的小九九了吧…</p>
+<p>4，内存泄漏问题：<br>内联书写setInterval时，由于匿名函数被定义于全局中，不能够计时器的清除，因此很容易造成内存泄露。</p>
+<p>规避办法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">setTimeout(function()&#123;</div><div class="line"></div><div class="line">          // 其他代码</div><div class="line">          setTimeout(arguments.callee, interval);</div><div class="line">     &#125;, interval);</div></pre></td></tr></table></figure>
+<pre><code>// 备注:interval指的是毫秒数。
+// 基本原理是：链式的调用setTimeout，每次函数执行时会创建一个新的定时器，第二个setTimeout调用使用了arguments.callee来获取对当前执行的函数的引用，并为它设置另一个定时器。这样做的好处是，在前一个定时器代码执行完毕之后，不会在队列中加入新的定时器代码，同时还能够没有任何缺失的间隔，从而避免连续运行。callee 属性是 arguments 对象的一个成员，他表示对函数对象本身的引用，这有利于匿名函数的递归或确保函数的封装性
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/12/javascript中的内存泄漏问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1027,773 +1779,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/05/osi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="闻国龙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wenguolong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/05/osi/" itemprop="url">计算机网络中OSI七层模型各层的功能</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T18:06:12+08:00">
-                2017-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h1><p>物理层的主要功能是：利用传输媒质为数据链里层提供物理连接，实现比特流的透明传输</p>
-<h1 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h1><p>数据链路层的主要功能是：通过各种控制协议，将有差错的物理信道变成无差错，能可靠传输数据帧的数据链路；</p>
-<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><p>网络层的主要功能是：通过路由选择算法，威豹纹或分组通过子网选择最合适的路径。该层控制数据链路层与传输层之间的信息转发，建立，维持和中指网络的连接；</p>
-<h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><p>传输层的功能是：向用户提供可靠的端到端的差错和流量控制，保证报文的正确传输，传输层的的作用是向高层屏蔽下层数据通信的细节，即向用户透明的传递报文；</p>
-<h1 id="会话层"><a href="#会话层" class="headerlink" title="会话层"></a>会话层</h1><p>会话层的功能：向两个实体的表示层提供建立和使用连接的方法，组织和协调两个会话进程之间的通信，并对数据交换进行管理；</p>
-<h1 id="表示层"><a href="#表示层" class="headerlink" title="表示层"></a>表示层</h1><p>表示层的功能：对来自应用层的命令和数据进行解释，对各种语法赋予相应的含义，并按照一定的格式传递给会话层；</p>
-<h1 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h1><p>应用层的功能：直接向用户提供服务，完成用户希望在网络上完成的各种工作；</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/03/hexo-domain/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="闻国龙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wenguolong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/03/hexo-domain/" itemprop="url">如何使用hexo，github和注册域名搭建个人博客系统</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T18:19:21+08:00">
-                2017-07-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>  在程序员的世界里，越来越多的人重视开源和博客的构建，如果在找工作中你能在github上有一个issue或者有几个开源项目被别人采纳，或者你有一个属于自己的博客系统，博文被更多人所赞同，那么这在你的求职过程中将会有莫大的帮助；作为一名程序猿，在学习的过程中渐渐感觉到知识体系越来越丰富，那么把这些零碎的知识写成博客放在服务器端不失为一种很明智的选择，LZ自己根据hexo博客系统自己搭了一个博客，在这里跟大家分享；欢迎点评，指点，本人将万分感激；</p>
-<h2 id="一，hexo必要配置：window下"><a href="#一，hexo必要配置：window下" class="headerlink" title="一，hexo必要配置：window下"></a>一，hexo必要配置：window下</h2><p> <strong>node必须要安装：</strong><br>         用来生成静态页面，可以在nodejs官网下载最新版本的，根据步骤一路安装即可<br>    <strong>git必须安装：</strong><br>    git的作用是用来把静态的博客提交到github<br>    下载地址：<a href="https://www.sourcetreeapp.com/，该版本是中文的" target="_blank" rel="external">https://www.sourcetreeapp.com/，该版本是中文的</a><br><strong>github必须安装：</strong><br>用来做远端的服务器，域名来用，网上很多这中文章，自己注册一个根据步骤来就好</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">hexo在本地全局下载安装：简单的配置hexo如下所示</div><div class="line">	 1，npm install hexo-cli -g:在命令行终端运行该命令就会在全局下载安装hexo的脚手架</div><div class="line">	2， hexo init：建立一个专门用来存放hexo博客文的文件夹，然后在文件夹根目录下运行hexo init或者hexo init blog这样就会创建一个博客文件夹，在这里里面可以配置你的博客，存放博客文（可以用csdn的markdown来制作博客文，这个还可以下载到本地，md文件后缀）</div><div class="line">	 3，从csdn博客那里下载一个制作好的博客文章，放到blog\source\_posts目录下，_posts文件夹专门用于存放你的文章</div><div class="line">	4，运行hexo server </div><div class="line">		在命令行运行该命令可以在本地浏览器查看hexo博客文章的样式，方便简洁，直接在本地浏览器输入http://localhost:4000就可以在浏览器查看你的博客文章；</div><div class="line">		下面是我建立博客的根目录</div></pre></td></tr></table></figure>
-<p><img src="http://img.blog.csdn.net/20170618201823468?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="blog根目录"><br>但是到这里你才刚把hexo搭建好，还不能在服务器上访问，我这里暂时使用的是github提供的github pages，这是github提供的静态页面托管服务器，只要注册了github账号就可以使用；具体可参考<a href="https://pages.github.com/" target="_blank" rel="external">github pages</a></p>
-<h2 id="二，下面说一下如何来配置github；"><a href="#二，下面说一下如何来配置github；" class="headerlink" title="二，下面说一下如何来配置github；"></a>二，下面说一下如何来配置github；</h2><pre><code>1，在你的github账号上面新建一个Repository，这个Repository的名字必须为your_user_name.github.io;这是一个固定的写法，这样就建立了你自己的一个github仓库，你可以使用这个作为你的服务器来托管你的静态博客页面；
-2，建立github和本地blog根目录的一个关联    
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">配置你的_config.yml文件（根目录下），注意hexo中：后面跟内容必须加空格</div><div class="line">	deploy:</div><div class="line">	  type: git</div><div class="line">	  repository: https://github.com/your_user_name/your_user_name.github.io.git</div><div class="line">	  branch: master</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">然后执行npm install hexo-deployer-git --save执行这个命令之后你才可以使用git把你的文章部署到github上</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">最后执行一下hexo deploy就可以把你制作好的文章部署到github上去</div></pre></td></tr></table></figure>
-<h2 id="三，将自己的域名和github解析"><a href="#三，将自己的域名和github解析" class="headerlink" title="三，将自己的域名和github解析"></a>三，将自己的域名和github解析</h2><pre><code>经过上面两个步骤虽然已经建立好自己的博客，而且你可以对自己的博客进行修改，添加等，但是始终用的是别人的服务器，总有点受制于人的感觉；所以我又自己注册了一个域名，并把域名映射到github的服务器，这样直接使用我注册的域名就可以访问我的博文，拜托了github的魔杖；
-首先你要有一个域名对吧，在国内比较好的域名注册网站就是阿里云，腾讯云，百度元，楼主注册了一个阿里云的账号；国外也可以注册免费域名，网站地址为http://www.freenom.com/zh/index.html?lang=zh,注册流程可以问度娘，这里不再叙述
-注册过域名之后，进入阿里云的控制台
-</code></pre><p><img src="http://img.blog.csdn.net/20170618221821309?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="阿里云">之后点击最右侧对的解析，将你的域名解析成github的</p>
-<p><strong>下面这个从网上查找的办法不可行，无法正常解析</strong><br><img src="http://img.blog.csdn.net/20170618222110123?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">在这里记录类型选择CNAME，用来将域名指向一个域名，实现与被指向域名相同的访问效果；主机类型选择：*，用来指定所有的子域名都将指向同一地址。最后记录值就是你需要指定域名指向的地址，没有http,也没有www;然后保存等待域名解析完成之后就可以访问个人域名来达到访问github指定域名的效果；</p>
-<h2 id="可行的域名解析办法"><a href="#可行的域名解析办法" class="headerlink" title="可行的域名解析办法"></a>可行的域名解析办法</h2><p>   在阿里云管理控制台中,选择【域名】》【域名列表】》【全部域名】中刚刚购买的域名,点击解析按钮<br>这时会提醒你选择解析到阿里云主机,或者其他主机,这时需要将你在Github上创建的Github Pages的域名 xxx.github.io进行查询,得到一个IP地址。</p>
-<p>  151.101.72.133是我的github的地址（就是xiangzhihong.github.io地址，你也可以ping自己的xx.github.io，个人建议使用ping,方便快捷，不用费事从github查）.<br><img src="http://img.blog.csdn.net/20170701174008324?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>按照这个方式解析就可以了；一般解析完成也就十分钟左右，太长了就说明你的解析不正确；</p>
-<h2 id="Github解析"><a href="#Github解析" class="headerlink" title="Github解析"></a>Github解析</h2><p>在Github的xxx.github.io项目,进入【Settings】标签页,在【Custom domain】功能中,将刚刚申请的域名写进去。<br><img src="http://img.blog.csdn.net/20170701174320373?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="github域名解析"></p>
-<p>如果你填写正确。就会出现上方哪个：Your  site is published at ……</p>
-<p>这样填写完成之后呢，看样子万事大吉了，解析完成之后，你使用xxx.github.io或者你的个人域名xxx.com都可以实现访问你的域名；</p>
-<p>但是新的问题出现了，当你在客户端写了一个博客之后，在重新部署到github上，你发现使用两种方式都不能打开你的博客了~这是多么让人难受的一件事情；</p>
-<p>那么，<strong>解决办法如下：</strong><br>        在你的电脑上，找到你的blog根目录<br>        <img src="http://img.blog.csdn.net/20170701174814488?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="blog根目录"></p>
-<p>在你的source文件夹中。加入一个文件夹，CNAME，<br><img src="http://img.blog.csdn.net/20170701174946463?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="CNAME"></p>
-<p>文件夹内写的就是你需要解析的域名，不需要加http:// 也不需要加www。</p>
-<p><img src="http://img.blog.csdn.net/20170701175200402?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>之后再把你的hexo博客部署到服务器上，记得一定要部署，不然还是没有办法达到修改的目的；</p>
-<blockquote>
-<p>请注意，注册域名之后一定要实名认证，认证需要等三到五天，记住一定要实名认证，否则你的解析结果将一直<br><img src="http://img.blog.csdn.net/20170618222720970?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="是"></p>
-</blockquote>
-<p>最后就完成了实现域名到服务器的映射，你就可以使用自己的域名来实现自己的博客，感觉很神奇把。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/02/domain-name-server/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="闻国龙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wenguolong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/02/domain-name-server/" itemprop="url">免费打造个人网站，免费域名，免费空间，ftp使用，数据库等，免费就能搭建个人网站</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-02T11:19:23+08:00">
-                2017-07-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/网站/" itemprop="url" rel="index">
-                    <span itemprop="name">网站</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>作为一名编程爱好者，有自己的一个域名空间是逼格多高的一件事啊，使用自己的云空间可以做很多事情，不管你是前端，后端，测试，软件工程师，有一个存储自己内容的独立空间，并且由你自己支配，使用；想想逼格就很高；下面介绍LZ在拼杀了两天的时间才测试出来的一套完整建立自己网站的流程，亲测有效！</p>
-</blockquote>
-<h2 id="个人成果展示"><a href="#个人成果展示" class="headerlink" title="个人成果展示"></a>个人成果展示</h2><p> 通过个人域名，访问服务器图片：<br>    <img src="http://i.imgur.com/23PCEpf.jpg" alt=""></p>
-<p>通过个人域名，访问个人写的简易网页：</p>
-<hr>
-<h2 id="第一，使用freenom注册免费个人域名并解析到个人空间"><a href="#第一，使用freenom注册免费个人域名并解析到个人空间" class="headerlink" title="第一，使用freenom注册免费个人域名并解析到个人空间"></a>第一，使用freenom注册免费个人域名并解析到个人空间</h2><p>想要建站必须要有自己的域名吧，所以说首先需要建立一个属于自己独特的域名很重要，国内比较好的可以用腾讯云或者百度云，这里我们使用国外的一个免费提供域名的网站<br><a href="http://www.freenom.com/zh/index.html?lang=zh" title="freenom" target="_blank" rel="external">http://www.freenom.com/zh/index.html?lang=zh</a>,从上面的图中可以看到我的域名就是一个以tk结尾的顶级域名，使用freenom可以注册比如.tk,.ml.ga,.cf的顶级域名，进入freenom官网如下图：（这里我已经把官网翻译为中文，LZ看不懂英文）</p>
-<p><img src="http://i.imgur.com/KPCm84k.jpg" alt=""></p>
-<p>之后你就可以输入你想要注册的域名，查询一下你的域名是否可以注册，一般来说，普通的域名都是可以注册的；<br><img src="http://i.imgur.com/vcbtgTi.png" alt=""></p>
-<p>点击你想要注册域名后缀的哪个，<strong>现在获取</strong>，一般freenom提供的是1到1年的都有，在这一年之内可以免费使用，到距离一年还有一个月的时候会邮箱提醒你域名续费，这个续费也是不要钱的；可以免费续费，就是说你可以一直用着这个域名了；获取之后，域名会被添加到你的购物车中，在购物车中你可以选择使用这个域名多久，一年之内都是免费的，<strong>记住，</strong>你可能需要注册一个freenom账号才能使用，不过你也可以使用google账号登录，这里我是用的就是google的账号，很方便，之后使用的hostinger登录也是使用的google账号，能在很多外国网站进行登录注册；</p>
-<p><strong>那么现在你就有了自己的一个域名了，距离人生巅峰已经不远了</strong><br>    在freenom主页的service中找到My Domains点进入就是管理你的域名了，<br><img src="http://i.imgur.com/qVO0qPg.png" alt=""></p>
-<p>点击右边的Manage Domain来管理解析你的域名；<br><img src="http://i.imgur.com/mZ6iAbK.png" alt=""></p>
-<p>如果你仅仅想让域名指向一个地址，那就选择URL Forwarding,不过这里我们要指向自己的域名服务器，选择Nameservers,打开后输入如下信息：<br><img src="http://i.imgur.com/UUrqyMl.png" alt=""></p>
-<p>域名服务器最少两个，最多五个，根据后面的直接粘贴复制就好，后面我会告诉大家在哪里找到。输入完成后，点击Change Nameservers保存即可。</p>
-<h2 id="第二，获取免费个人空间"><a href="#第二，获取免费个人空间" class="headerlink" title="第二，获取免费个人空间"></a>第二，获取免费个人空间</h2><p>网上其实也有很多网站都能提供给你空间，甚至直接给你一个空间免费使用，但是局限性都非常大。而我们想要的个人空间，带有FTP，MYSQL吧，所以这里我们使用<a href="https://www.hostinger.com.hk/web-hosting" title="hostinger" target="_blank" rel="external">https://www.hostinger.com.hk/web-hosting</a></p>
-<p>因为这个网站的服务器在香港，所以跑起来加载速度会比较慢，你完全可以使用上面注册的google账号注册并且登陆：</p>
-<p>首页就有免费云空间的介绍<img src="http://i.imgur.com/FKVaDHi.png" alt="免费云空间"></p>
-<p>点击订购云空间就可以获取自己的空间了，这里我们所使用的是第一个免费的云空间，对于个人网站来说完全够用了，因为我的已经解析过主机了，所以就没有办法截图了，当<strong>你第一次订购云主机的时候会提醒你新建云主机，这里你就能把之前注册的域名填进去，这里不需要http：// ，也不需要www</strong>，一路根据网站的操作就好,订购云主机完成之后，每次点击客户中心就可以进入到你的个人空间管理页面；如下：<br>    <img src="http://i.imgur.com/8T4O9tL.png" alt="个人空间主页"></p>
-<p>在这个个人主机的控制首页里面，你可以操作你的空间的内容操作在这里都可以找到，空间的信息，数据库，和ftp都可以在这个主页中去寻找操作；</p>
-<h1 id="解析域名"><a href="#解析域名" class="headerlink" title="解析域名"></a>解析域名</h1><p> 点击账号-》信息</p>
-<p>在获取免费域名的最后一步，有一个操作是把免费域名的DNS服务器只想你的云主机，那么在这里就会出现你应该解析的DNS地址：<br>    <img src="http://i.imgur.com/fgfjLN3.png" alt="DNS服武器"></p>
-<p>从个人云主机信息的<strong>NS服务器信息</strong>可以可以看到四个DNS服务器地址，将这四个拷贝到你之前freenom注册域名的nameservers下的DNS服务器哪里就好了，这样就完成了域名和云空间的解析；也就是说你可以使用域名来访问你的云空间了：</p>
-<p>费了一早上的时间才出现这个页面，突然觉得人生还是很美好的；<br>    <img src="http://i.imgur.com/RYNo4GM.png" alt=""></p>
-<h1 id="FTP和MySQL"><a href="#FTP和MySQL" class="headerlink" title="FTP和MySQL"></a>FTP和MySQL</h1><p>下面回到管理界面，向下拉可以看到FTP和MySQL的管理选项：</p>
-<p><img src="http://i.imgur.com/tuqjEmC.png" alt=""></p>
-<p>可以看到在MySQL旁边出有PHPMyAdmin工具和一些数据库的操作。下面来创建FTP账号，点击FTP账号图标，跳转到如下界面：<br><img src="http://i.imgur.com/IiZoleM.png" alt=""></p>
-<p>在这里你就可以创建你的FTP账号了，记住左边目录的public_html一定要勾选上，因为你使用ftp上传的文件都会保存在public_html文件中，所以这个一定要勾选；然后输入用户名和密码（自己设计）</p>
-<p>创建成功之后如下下：<br>    <img src="http://i.imgur.com/zB2Qwck.png" alt=""></p>
-<p>然后下载FTP工具测试一下，是可以连接成功的。我使用的随时Flash FXP这个ftp上传工具，因为这个官网是要收钱的，只能免费使用30天，所以楼主无奈之下只能出下策，使用下面这个别人分享的绿色破解版的：</p>
-<p>链接: <a href="https://pan.baidu.com/s/1qYEodqO" title="https://pan.baidu.com/s/1qYEodqO " target="_blank" rel="external">https://pan.baidu.com/s/1qYEodqO </a>密码: f85p</p>
-<p>直接下载下来解压之后就可以使用了，不需要安装，直接运行.exe文件就能运行，有一点小烦人就是每次你想连接自己的云空间，都要重新输入一次主机名，密码，用户名；</p>
-<p>创建MySQL数据库比较简单，点击MySQL图标，出现如下：<br><img src="http://i.imgur.com/B13Wc4s.png" alt="数据库"></p>
-<p>输入你的数据库名称和用户名，自己设计好密码就可以了，之后在使用htp上传文件就完事大大吉了！</p>
-<p>这个是楼主亲测可以使用的办法，这样不花一分钱就可以免费拥有了自己的域名和云空间，就可以在编程的的过程中把一些图片文件上传上去，直接使用服务器加载岂不快哉!如果你有什么意见或者建议，可以直接通过qq或者邮箱联系我？感谢您废了这么长的时间来看这篇博文，也希望我的一份贡献能帮您减少很多的弯路！</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/react-native-baidu-map在react-native中的使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="闻国龙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wenguolong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/20/react-native-baidu-map在react-native中的使用/" itemprop="url">react-native-baidu-map在react-native中的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-20T15:04:45+08:00">
-                2017-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react-native</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>转载请注明地址：<a href="http://blog.csdn.net/sinat_37059404/article/details/73330041" target="_blank" rel="external">http://blog.csdn.net/sinat_37059404/article/details/73330041</a><br>github官网地址：<br><a href="https://github.com/lovebing/react-native-baidu-map" target="_blank" rel="external">https://github.com/lovebing/react-native-baidu-map</a></p>
-<p>下载方式：<br>npm install react-native-baidu-map –save</p>
-<p>插件使用过程中需要配置的内容：<br>1，在项目的  android/settings.gradle目录 下添加：</p>
-<p>include ‘:app’<br>include ‘:react-native-baidu-map’<br>project(‘:react-native-baidu-map’).projectDir = new File(settingsDir, ‘../node_modules/react-native-baidu-map/android’)</p>
-<p>2， 在android/app/build.gradle 中添加：<br>dependencies {<br>  compile project(‘:react-native-baidu-map’) // 添加的一行<br>  compile fileTree(dir: “libs”, include: [“*.jar”])<br>  compile “com.android.support:appcompat-v7:23.0.1”<br>  compile “com.facebook.react:react-native:+” // From node_modules<br>}<br>3， 在android/app/src/main/AndroidManifest.xml 中添加：<br>这个地方需要修改两个地方，<br>一个是修改权限，权限问题就是你需要获取百度的网络定位能；<br>一个是添加 meta-data，这个就是百度开发的key了，可以从百度里面直接找到具体申请方法，按照步骤做就可以了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">&lt;!-- 这个权限用于进行网络定位--&gt;</div><div class="line">  &lt;uses-permission android:name=&quot;android.permission.ACCESS_COARSE_LOCATION&quot;&gt;&lt;/uses-permission&gt;</div><div class="line">  &lt;!-- 这个权限用于访问GPS定位--&gt;</div><div class="line">  &lt;uses-permission android:name=&quot;android.permission.ACCESS_FINE_LOCATION&quot;&gt;&lt;/uses-permission&gt;</div><div class="line"></div><div class="line">  &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;</div><div class="line">  &lt;uses-permission android:name=&quot;android.permission.SYSTEM_ALERT_WINDOW&quot;/&gt;</div><div class="line">  &lt;uses-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot;/&gt;</div><div class="line">  &lt;uses-permission android:name=&quot;com.android.launcher.permission.READ_SETTINGS&quot; /&gt;</div><div class="line">  &lt;uses-permission android:name=&quot;android.permission.WAKE_LOCK&quot;/&gt;</div><div class="line">  &lt;uses-permission android:name=&quot;android.permission.CHANGE_WIFI_STATE&quot; /&gt;</div><div class="line">  &lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot; /&gt;</div><div class="line">  &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;/&gt;</div><div class="line">  &lt;uses-permission android:name=&quot;android.permission.WRITE_SETTINGS&quot; /&gt;</div><div class="line"></div><div class="line">&lt;application</div><div class="line">  ...</div><div class="line">  &lt;meta-data</div><div class="line">  android:name=&quot;com.baidu.lbsapi.API_KEY&quot;</div><div class="line">  android:value=&quot;I03Xwhn5L3uVBrYSRfG8KzSrSZQkaM8h&quot;/&gt; // 申请到的baidu地图app key ，这个是主要添加的标签，之后再说如何获取百度的key</div><div class="line"></div><div class="line">  ...</div><div class="line">  &lt;/application&gt;</div></pre></td></tr></table></figure>
-<p> 4, 在android/app/src/main/Java/[…]/MainApplication.java 中添加：</p>
-<p>import org.lovebing.reactnative.baidumap.BaiduMapPackage; //添加</p>
-<p>  @Override<br>  protected List<reactpackage> getPackages() {<br>  return Arrays.<reactpackage>asList(<br>  new MainReactPackage(),                    //注意这个地方的逗号<br>  new BaiduMapPackage(getApplicationContext()) // 添加<br>  );<br>  }<br>5， index.android.js 添加功能实现(导入相关功能组件)：也可以在你需要引入地图的界面修改；BaiduMapDemo组件是官网上的demo，需要<strong>复制下载</strong>在你的项目中做成一个你的组件来用，直接引入是找不到这个的；</reactpackage></reactpackage></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import React, &#123; Component &#125; from &apos;react&apos;;</div><div class="line">import &#123;</div><div class="line">  AppRegistry,</div><div class="line">&#125; from &apos;react-native&apos;;</div><div class="line"></div><div class="line">import BaiduMapDemo from &apos;./BaiduMapDemo&apos; //需在index.android.js同级目录下添加BaiduMapDemo.js文档</div><div class="line"></div><div class="line">export default class BaiDuMapDemo extends Component &#123;</div><div class="line">  render() &#123;</div><div class="line">    return (</div><div class="line">      &lt;BaiduMapDemo/&gt;</div><div class="line">    );</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">AppRegistry.registerComponent(&apos;myrnbaidumap&apos;, () =&gt; BaiDuMapDemo);</div></pre></td></tr></table></figure>
-<p>6，然后在运行就可以了<br>申请百度的key可以参考:<br><a href="http://lbsyun.baidu.com/index.php?title=androidsdk/guide/key" target="_blank" rel="external">http://lbsyun.baidu.com/index.php?title=androidsdk/guide/key</a></p>
-<p>使用的话可以根据官网的哪个demo改一些就可以用了</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/20/react-native-splash-screen的心酸历程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="闻国龙">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="wenguolong">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/20/react-native-splash-screen的心酸历程/" itemprop="url">react-native-splash-screen的心酸历程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-20T13:12:40+08:00">
-                2017-06-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/react-native/" itemprop="url" rel="index">
-                    <span itemprop="name">react-native</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>楼主学习react-antive的时候，在Android项目中，电脑原因太卡了，跑项目能跑一天才能跑起来，想死的心都有了！而且跑到手机上之后老是白屏， 所以想着能不能用开源的包来打包一下，让初始化进入项目的时候，让项目的初始化白屏变成一个动画图片，于是从度娘找到了react-native-splash-screen这个伟大的包，痛苦总是有的，但结果还算开心！太坑了就是，以下分享我的痛苦历程：</p>
-</blockquote>
-<p>一，基础配置</p>
-<blockquote>
-<p>第一步（下载）：从react-native的根目录下下载包</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"> npm i react-native-splash-screen --save</div><div class="line"></div><div class="line">&gt; 第二步（安装）：：安装包：一种是自动安装，一种是手动安装（楼主是自动安装的，所以就只介绍自动安装的方法了，具体手动安装的可以去官网查看）</div><div class="line"></div><div class="line">`react-native link react-native-splash-screen 或者  rnpm link react-native-splash-screen`</div><div class="line">			</div><div class="line">第三步（配置）： （1）  在 Android的目录：android/app/src/main/java/com/uto/ MainActivity.java下更新你的 MainActivity.java 文件如下：</div><div class="line"></div><div class="line">import android.os.Bundle;</div><div class="line">import com.facebook.react.ReactActivity;</div><div class="line">import com.cboy.rn.splashscreen.SplashScreen;</div><div class="line"></div><div class="line">public class MainActivity extends ReactActivity &#123;</div><div class="line">   @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;//如果这个函数没有，就自行添加</div><div class="line">        SplashScreen.show(this);  // here</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">    &#125;</div><div class="line">    // ...other code</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>第四步（运行）：前面的都是官网可以查到的，后面运行的时候各种调试，各种bug都可能出现。一般都是因为你的文件目录和内容没引对 导致项目运行失败<br>     1， 将 react-native-splash-screen 导入你的JS 文件（你的项目的路由路由第一个加载的组件）。<br>        import SplashScreen from ‘react-native-splash-screen’</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
-<p>二，针对不同的终端的配置<br>对于Android中需要配置的内容:<br>      创建一个名为 launch_screen.xml 的布局文件来自定义你的启动屏幕。最坑的地方就在这里：如果你要添加一个名为launch_screen.xml文件，这个文件需要放在 android/app/src/main/res/layout下，如果没有layout文件，你就要新建一个layout文件并把xml文件放进去；另外，你还要在res目录下新建一个 drawable-xhdpi文件夹，里面放你想要在初始加载的时候展示的图片，图片的名称要为launch_screen.png；如果不是这样设置的就回出现各种不懂得bug，都是因为这个文件导致的，比如说could not create deotory；还有就是java.io.Exception,还有一个是aapt，说Java的sdk爆炸了，其实根源都在这里。</p>
-<p>这是你的launch_xml文件<br>``&lt;?xml version=”1.0” encoding=”utf-8”?&gt;</p>
-<p><linearlayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@drawable/launch_screen"><br></linearlayout>`</p>
-<p>如果这些都设置好之后，在你的APPRegistry的类中设置，加载render之前运行这个</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">componentDidMount() &#123;</div><div class="line">     // do anything while splash screen keeps, use await to wait for an async task.</div><div class="line">       SplashScreen.hide();//关闭启动屏幕</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<p>iOS的配置： iOS可以通过LaunchImage或LaunchScreen.xib来自定义你的启动屏幕</p>
-<p>转载请注明转载源地址：<a href="http://blog.csdn.net/sinat_37059404/article/details/72729694" target="_blank" rel="external">http://blog.csdn.net/sinat_37059404/article/details/72729694</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1843,7 +1828,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1865,7 +1850,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
