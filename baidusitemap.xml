@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://yoursite.com/2017/08/12/javascript%E4%B8%AD%E7%9A%84%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2017-08-12T08:53:29.575Z</lastmod>
+    <data>
+        <display>
+        <title>Javascript中内存泄漏的问题</title>
+        <pubTime>2017-08-12T08:50:26.407Z</pubTime>
+        
+        <tag>内存泄漏</tag>
+         
+         
+           
+             
+              <breadCrumb title="javascript" url="http://yoursite.com/categories/javascript/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2017/08/09/%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/</loc>
     <lastmod>2017-08-09T08:44:48.668Z</lastmod>
     <data>

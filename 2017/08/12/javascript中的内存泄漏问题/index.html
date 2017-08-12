@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="二叉树," />
+  <meta name="keywords" content="内存泄漏," />
 
 
 
@@ -93,17 +93,19 @@
 
 
 
-<meta name="description" content="二叉树的每个结点至多只有二棵子树(不存在度大于2的结点)，二叉树的子树有左右之分，次序不能颠倒。二叉树的第i层至多有2^{i-1}个结点；深度为k的二叉树至多有2^k-1个结点；对任何一棵二叉树T，如果其终端结点数为n_0，度为2的结点数为n_2，则n_0=n_2+1。 一棵深度为k，且有2^k-1个节点称之为满二叉树；深度为k，有n个节点的二叉树，当且仅当其每一个节点都与深度为k的满二叉树中，序">
-<meta name="keywords" content="二叉树">
+<meta name="description" content="内存泄漏是一个常见的性能问题，常常会导致程序的崩溃，运行缓慢，高延迟或者其他的一下问题； 内存泄漏：内存泄漏是指分配给应用的内存不能被重新分配，即使在内存已经不被使用的时候。正常情况下，垃圾回收器在DOM元素和event处理器不被引用或访问的时候回收它们。但是，IE的早些版本(IE7和之前)中内存泄漏是很容易出现的，因为内存管理器不能正确理解Javascript生命周期而且在周期被打破(可以通过赋">
+<meta name="keywords" content="内存泄漏">
 <meta property="og:type" content="article">
-<meta property="og:title" content="二叉链表的建立和三种遍历的递归方式">
-<meta property="og:url" content="http://yoursite.com/2017/07/25/binary_tree/index.html">
+<meta property="og:title" content="Javascript中内存泄漏的问题">
+<meta property="og:url" content="http://yoursite.com/2017/08/12/javascript中的内存泄漏问题/index.html">
 <meta property="og:site_name" content="wenguolong">
-<meta property="og:description" content="二叉树的每个结点至多只有二棵子树(不存在度大于2的结点)，二叉树的子树有左右之分，次序不能颠倒。二叉树的第i层至多有2^{i-1}个结点；深度为k的二叉树至多有2^k-1个结点；对任何一棵二叉树T，如果其终端结点数为n_0，度为2的结点数为n_2，则n_0=n_2+1。 一棵深度为k，且有2^k-1个节点称之为满二叉树；深度为k，有n个节点的二叉树，当且仅当其每一个节点都与深度为k的满二叉树中，序">
-<meta property="og:updated_time" content="2017-07-25T01:37:11.554Z">
+<meta property="og:description" content="内存泄漏是一个常见的性能问题，常常会导致程序的崩溃，运行缓慢，高延迟或者其他的一下问题； 内存泄漏：内存泄漏是指分配给应用的内存不能被重新分配，即使在内存已经不被使用的时候。正常情况下，垃圾回收器在DOM元素和event处理器不被引用或访问的时候回收它们。但是，IE的早些版本(IE7和之前)中内存泄漏是很容易出现的，因为内存管理器不能正确理解Javascript生命周期而且在周期被打破(可以通过赋">
+<meta property="og:image" content="http://img.blog.csdn.net/20170810160025725?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2017-08-12T08:53:29.575Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="二叉链表的建立和三种遍历的递归方式">
-<meta name="twitter:description" content="二叉树的每个结点至多只有二棵子树(不存在度大于2的结点)，二叉树的子树有左右之分，次序不能颠倒。二叉树的第i层至多有2^{i-1}个结点；深度为k的二叉树至多有2^k-1个结点；对任何一棵二叉树T，如果其终端结点数为n_0，度为2的结点数为n_2，则n_0=n_2+1。 一棵深度为k，且有2^k-1个节点称之为满二叉树；深度为k，有n个节点的二叉树，当且仅当其每一个节点都与深度为k的满二叉树中，序">
+<meta name="twitter:title" content="Javascript中内存泄漏的问题">
+<meta name="twitter:description" content="内存泄漏是一个常见的性能问题，常常会导致程序的崩溃，运行缓慢，高延迟或者其他的一下问题； 内存泄漏：内存泄漏是指分配给应用的内存不能被重新分配，即使在内存已经不被使用的时候。正常情况下，垃圾回收器在DOM元素和event处理器不被引用或访问的时候回收它们。但是，IE的早些版本(IE7和之前)中内存泄漏是很容易出现的，因为内存管理器不能正确理解Javascript生命周期而且在周期被打破(可以通过赋">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20170810160025725?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
 
 
 
@@ -131,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/25/binary_tree/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/12/javascript中的内存泄漏问题/"/>
 
 
 
 
 
-  <title>二叉链表的建立和三种遍历的递归方式 | wenguolong</title>
+  <title>Javascript中内存泄漏的问题 | wenguolong</title>
   
 
 
@@ -310,7 +312,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/25/binary_tree/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/12/javascript中的内存泄漏问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="闻国龙">
@@ -327,7 +329,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">二叉链表的建立和三种遍历的递归方式</h1>
+          <h1 class="post-title" itemprop="name headline">Javascript中内存泄漏的问题</h1>
         
 
         <div class="post-meta">
@@ -339,8 +341,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T09:29:36+08:00">
-                2017-07-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-12T16:50:26+08:00">
+                2017-08-12
               </time>
             
 
@@ -362,8 +364,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据结构和算法/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构和算法</span>
+                  <a href="/categories/javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript</span>
                   </a>
                 </span>
 
@@ -380,7 +382,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/07/25/binary_tree/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/08/12/javascript中的内存泄漏问题/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -406,18 +408,28 @@
       
 
       
-        <p>二叉树的每个结点至多只有二棵子树(不存在度大于2的结点)，二叉树的子树有左右之分，次序不能颠倒。二叉树的第i层至多有2^{i-1}个结点；深度为k的二叉树至多有2^k-1个结点；对任何一棵二叉树T，如果其终端结点数为n_0，度为2的结点数为n_2，则n_0=n_2+1。</p>
-<p>一棵深度为k，且有2^k-1个节点称之为满二叉树；深度为k，有n个节点的二叉树，当且仅当其每一个节点都与深度为k的满二叉树中，序号为1至n的节点对应时，称之为完全二叉树。</p>
-<p>二叉树的建立过程是二叉链表的方式，即当前结点不光存储当前结点的数据，还存储左右孩子的指针</p>
-<p>这里多加了一个level用来判断结点在第几层</p>
-<p>二叉树中的中序和后序遍历都是因为结点的建立问题，不能用于建立一个二叉树<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">include&lt;stdlib.h&gt;</div><div class="line">include&lt;stdio.h&gt;</div><div class="line">typedef char ElemType;</div><div class="line"></div><div class="line">//二叉链表的构建形式</div><div class="line">typedef struct binaryTree</div><div class="line">&#123;</div><div class="line">  ElemType data;</div><div class="line">  struct binaryTree *lchild,*rchild;</div><div class="line">&#125;binaryTree,*BiTree;</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//访问一个结点并打印</div><div class="line">void visited(char c,int level)</div><div class="line">&#123;</div><div class="line">  printf(&quot;%c在第%d层 \n&quot;,c, level);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//使用前序的方式建立一个二叉树</div><div class="line">void PreorderCreateBinaryTree(BiTree *T)</div><div class="line">&#123;</div><div class="line">  char c;</div><div class="line">  scanf(&quot;%c&quot;,&amp;c);</div><div class="line"></div><div class="line">  if( &apos;#&apos; == c)</div><div class="line">  &#123;</div><div class="line">  *T = NULL;</div><div class="line">  &#125;</div><div class="line">  else&#123;</div><div class="line">  *T = (BiTree)malloc(sizeof(binaryTree));</div><div class="line">  (*T)-&gt;data = c;</div><div class="line">  PreorderCreateBinaryTree(&amp;(*T)-&gt;lchild);</div><div class="line">  PreorderCreateBinaryTree(&amp;(*T)-&gt;rchild);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">//前序遍历二叉树</div><div class="line">void PreorderTraversal(BiTree T,int level)</div><div class="line">&#123;</div><div class="line">  if( T )</div><div class="line">  &#123;</div><div class="line">  visited(T-&gt;data,level);</div><div class="line">  PreorderTraversal(T-&gt;lchild,level + 1);</div><div class="line">  PreorderTraversal(T-&gt;rchild, level + 1);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">//中序遍历二叉树</div><div class="line">void OrderTraversal(BiTree T ,int level)</div><div class="line">&#123;</div><div class="line">  if( T )</div><div class="line">  &#123;</div><div class="line">  PreorderTraversal(T-&gt;lchild,level + 1);</div><div class="line">  visited(T-&gt;data,level);</div><div class="line">  PreorderTraversal(T-&gt;rchild,level + 1);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">//后序遍历二叉树</div><div class="line">void PosteriorTraversal(BiTree T,int level)</div><div class="line">&#123;</div><div class="line">  if( T )</div><div class="line">  &#123;</div><div class="line">  PosteriorTraversal(T-&gt;lchild,level + 1);</div><div class="line">  PosteriorTraversal(T-&gt;rchild,level + 1);</div><div class="line">  visited(T-&gt;data,level);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">//层序的方式实现二叉树的遍历--------------------------------------------</div><div class="line"></div><div class="line">//利用递归的方法，按层进行打印，我们把根节点当做第0层，之后层次依次增加，如果我们想打印第二层怎么办呢，利用递归的代码如下：</div><div class="line">int sequence_traversal_level(BiTree T, int level) &#123;</div><div class="line">  if (!T || level &lt; 0)     //当树的结点不存在，并且或者根节点不存在（深度小于0）的时候，结束</div><div class="line">  return 0;</div><div class="line">  if (0 == level) &#123;        //当level为0的时候，说明这一层遍历完成，需要换行</div><div class="line">  printf(&quot;%c &quot;,T-&gt;data);</div><div class="line">  return 1;</div><div class="line">  &#125;</div><div class="line">  return sequence_traversal_level(T-&gt;lchild, level - 1) + sequence_traversal_level(T-&gt;rchild, level - 1);//左右孩子的返回值加一次为0，才能确定没有下一层，否则就需要遍历下一层；</div><div class="line">&#125;</div><div class="line">//如果我们成功的打印了给定的层次，那么就返回非0的正值，如果失败返回0。</div><div class="line">//有了这个思路，我们就可以应用一个循环，来打印这颗树的所有层的节点，但是有个问题就是我们不知道这棵二叉树的深度，</div><div class="line">//怎么来控制循环使其结束呢，仔细看一下sequence_traversal_level，如果指定的Tree是空的，那么就直接返回0，</div><div class="line">//当返回0的时候，我们就结束循环，说明没有节点可以打印了。</div><div class="line"></div><div class="line">void sequence_traversal(BiTree T) &#123;</div><div class="line">  int i = 0;</div><div class="line">  for (i = 0; ; i++) &#123;</div><div class="line">  if (!sequence_traversal_level(T, i))               //当链表中的第i层不存在的时候退出，或者树为空的时候 遍历完成，退出循环</div><div class="line">  &#123;</div><div class="line">  break;</div><div class="line">  &#125;</div><div class="line">  else&#123;                                      //否则就是该层次打印完成，换行</div><div class="line">  printf(&quot;\n&quot;);</div><div class="line">  &#125;</div><div class="line">  &#125;</div><div class="line">  printf(&quot;\n&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">int main()</div><div class="line">&#123;</div><div class="line">  BiTree T;</div><div class="line">  int level = 1;</div><div class="line">  printf(&quot;建立二叉树并访问节点&quot;);</div><div class="line">  printf(&quot;请输入结点数据，建立树:\n&quot;);</div><div class="line">  PreorderCreateBinaryTree(&amp;T);</div><div class="line">  PosteriorTraversal(T , level);</div><div class="line">  return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <p>内存泄漏是一个常见的性能问题，常常会导致程序的崩溃，运行缓慢，高延迟或者其他的一下问题；</p>
+<h2 id="内存泄漏："><a href="#内存泄漏：" class="headerlink" title="内存泄漏："></a>内存泄漏：</h2><p>内存泄漏是指分配给应用的内存不能被重新分配，即使在内存已经不被使用的时候。正常情况下，垃圾回收器在DOM元素和event处理器不被引用或访问的时候回收它们。但是，IE的早些版本(IE7和之前)中内存泄漏是很容易出现的，因为内存管理器不能正确理解Javascript生命周期而且在周期被打破(可以通过赋值为null实现)前不会回收内存。</p>
+<h2 id="Javascript-中的垃圾收集机制："><a href="#Javascript-中的垃圾收集机制：" class="headerlink" title="Javascript 中的垃圾收集机制："></a>Javascript 中的垃圾收集机制：</h2><p>javascript具有自动垃圾收集机制，也就是说，开发人员不用再关心内存使用问题，所需内存的分配以及无用内存的回收完全实现了自动管理；垃圾收集器会按照固定的时间间隔，周期性的执行这一操作；<br>        javascript中有两种垃圾回收方法：标记清除，引用计数；</p>
+<h2 id="javascript中内存泄漏的几种方式"><a href="#javascript中内存泄漏的几种方式" class="headerlink" title="javascript中内存泄漏的几种方式"></a>javascript中内存泄漏的几种方式</h2><p><strong>1，意外的全局变量</strong><br>JavaScript 宽容性的一点表现在它处理未声明变量的方式上：一个未声明变量的引用会在全局对象中创建一个新的变量。在浏览器的环境下，全局对象就是 window</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">	function leaks()&#123;  </div><div class="line">    leak = &apos;xxxxxx&apos;;//leak 成为一个全局变量，不会被回收</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>另一种意外全局变量被创建的方式是通过this：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function foo() &#123;</div><div class="line">    this.str= &quot;this is a global&quot;;</div><div class="line">&#125;</div><div class="line">//在这里str也是一个全局变量，只不过比较隐晦罢了</div><div class="line">foo();</div></pre></td></tr></table></figure>
+<p>为了阻止这种错误发生，在你的Javascript文件最前面添加’use strict;’。这开启了解析JavaScript的阻止意外全局的更严格的模式。</p>
+<p><strong>2，闭包引起的内存泄漏</strong><br>闭包可以导致内存泄漏是因为内部方法保持一个对外部方法变量的引用，所以尽管方法返回了内部方法还可以继续访问在外部方法中定义的私有变量。对Javascript程序员来说最好的做法是在页面重载前断开所有的事件处理器。<br>var getBIBAO= (function(){<br>    var leak = ‘1234567’;// 被闭包所引用，不会被回收<br>    return function(){<br>        console.log(leak);<br>    }<br>})()<br>1234567</p>
+<p><strong>3，循环引用</strong><br>简单来说假如a引用了b,b又引用了a,a和b就构成了循环a和b循环引用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var a=new Object;</div><div class="line"></div><div class="line">var b=new Object;</div><div class="line"></div><div class="line">a.r=b;</div><div class="line"></div><div class="line">b.r=a;</div><div class="line"></div><div class="line">a循环引用自己：</div><div class="line"></div><div class="line">var a=new Object;</div><div class="line"></div><div class="line">a.r=a;</div></pre></td></tr></table></figure></p>
+<p>用很常见且大部分情况下是无害的，但当参与循环引用的对象中有DOM对象或者ActiveX对象时，循环引用将导致内存泄露。我们把例子中的任何一个new Object替换成document.getElementById或者document.createElement就会发生内存泄露了。</p>
+<p><strong>4,dom清空或删除时，事件未清除导致的内存泄漏</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;container&quot;&gt;  </div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">$(&apos;#container&apos;).bind(&apos;click&apos;, function()&#123;</div><div class="line">    console.log(&apos;click&apos;);</div><div class="line">&#125;).remove();</div><div class="line"></div><div class="line">// zepto 和原生 js下，#container dom 元素，还在内存里jquery 的 empty和 remove会帮助开发者避免这个问题</div><div class="line">12345678</div><div class="line">&lt;div id=&quot;container&quot;&gt;  </div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">$(&apos;#container&apos;).bind(&apos;click&apos;, function()&#123;</div><div class="line">    console.log(&apos;click&apos;);</div><div class="line">&#125;).off(&apos;click&apos;).remove();</div><div class="line">//把事件清除了，即可从内存中移除</div><div class="line">1234567</div></pre></td></tr></table></figure>
+<p>5，被遗忘的定时器或者回掉<br>在javascript中，使用set Interval之后，不把这个清除掉容易产生内存泄漏的问题；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var someResource = getData();</div><div class="line">setInterval(function() &#123;</div><div class="line">    var node = document.getElementById(&apos;Node&apos;);</div><div class="line">    if(node) &#123;</div><div class="line">        // Do stuff with node and someResource.</div><div class="line">        node.innerHTML = JSON.stringify(someResource));</div><div class="line">    &#125;</div><div class="line">&#125;, 1000);</div></pre></td></tr></table></figure>
+<p>这个例子表明了跳动的计时器可能发生什么：计时器使得节点或数据的引用不再被需要了。代表node的对象将来可能被移除，使得整个块在间隔中的处理不必要。然而，处理函数，由于间隔仍然是活跃的，不能被回收（间隔需要被停掉才能回收）。如果间隔处理不能被回收，它的依赖也不能被回收。那意味着可能存储着大量数据的someResource，也不能被回收。</p>
+<p>6，由于子元素的存在引起的内存泄漏问题<br><img src="http://img.blog.csdn.net/20170810160025725?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<ul>
+<li>黄色是指直接被 js变量所引用，在内存里</li>
+<li>红色是指间接被 js变量所引用，如上图，refB 被 refA 间接引用，导致即使 refB 变量被清空，也是不会被回收的</li>
+<li>子元素 refB 由于 parentNode 的间接引用，只要它不被删除，它所有的父元素（图中红色部分）都不会被删除</li>
+</ul>
 
       
     </div>
@@ -468,7 +480,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/二叉树/" rel="tag"># 二叉树</a>
+            <a href="/tags/内存泄漏/" rel="tag"># 内存泄漏</a>
           
         </div>
       
@@ -481,8 +493,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/07/npm包/" rel="next" title="如何使用命令行查看使用npm全局安装的包">
-                <i class="fa fa-chevron-left"></i> 如何使用命令行查看使用npm全局安装的包
+              <a href="/2017/08/09/作用域链/" rel="next" title="javascript作用域链和执行环境的理解">
+                <i class="fa fa-chevron-left"></i> javascript作用域链和执行环境的理解
               </a>
             
           </div>
@@ -490,10 +502,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/27/binary_tree_traversal/" rel="prev" title="二叉树三种遍历的非递归思路（JAVASCRIPT)">
-                二叉树三种遍历的非递归思路（JAVASCRIPT) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -565,8 +573,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -628,6 +645,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#内存泄漏："><span class="nav-number">1.</span> <span class="nav-text">内存泄漏：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Javascript-中的垃圾收集机制："><span class="nav-number">2.</span> <span class="nav-text">Javascript 中的垃圾收集机制：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#javascript中内存泄漏的几种方式"><span class="nav-number">3.</span> <span class="nav-text">javascript中内存泄漏的几种方式</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
