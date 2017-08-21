@@ -1,0 +1,1491 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="箭头函数," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="一个箭头函数表达式的语法比一个函数表达式更短，并且不绑定自己的 this，arguments，super或&amp;nbsp;new.target。  这些函数表达式最适合用于非方法函数，并且它们不能用作构造函数。  语法  基础语法  (param1, param2, …, paramN) =&amp;gt; { statements } (param1, param2, …, paramN) =&amp;gt">
+<meta name="keywords" content="箭头函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6中的箭头函数">
+<meta property="og:url" content="http://yoursite.com/2017/08/21/ES6中的箭头函数/index.html">
+<meta property="og:site_name" content="wenguolong">
+<meta property="og:description" content="一个箭头函数表达式的语法比一个函数表达式更短，并且不绑定自己的 this，arguments，super或&amp;nbsp;new.target。  这些函数表达式最适合用于非方法函数，并且它们不能用作构造函数。  语法  基础语法  (param1, param2, …, paramN) =&amp;gt; { statements } (param1, param2, …, paramN) =&amp;gt">
+<meta property="og:image" content="https://mdn.mozillademos.org/files/15037/7dd52b92-3a8f-11e7-8040-f3a8f7d73e6d.png">
+<meta property="og:updated_time" content="2017-08-21T03:48:14.253Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6中的箭头函数">
+<meta name="twitter:description" content="一个箭头函数表达式的语法比一个函数表达式更短，并且不绑定自己的 this，arguments，super或&amp;nbsp;new.target。  这些函数表达式最适合用于非方法函数，并且它们不能用作构造函数。  语法  基础语法  (param1, param2, …, paramN) =&amp;gt; { statements } (param1, param2, …, paramN) =&amp;gt">
+<meta name="twitter:image" content="https://mdn.mozillademos.org/files/15037/7dd52b92-3a8f-11e7-8040-f3a8f7d73e6d.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/21/ES6中的箭头函数/"/>
+
+
+
+
+
+  <title>ES6中的箭头函数 | wenguolong</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">wenguolong</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">solve the problems encountered in the learning process and solutions!</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/21/ES6中的箭头函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="闻国龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wenguolong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6中的箭头函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T11:43:53+08:00">
+                2017-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/08/21/ES6中的箭头函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <article id="wikiArticle">
+
+
+
+<p>一个<strong>箭头函数表达式</strong>的语法比一个<a href="/zh-CN/docs/Web/JavaScript/Reference/Operators/function">函数表达式</a>更短，并且不绑定自己的 <a href="/zh-CN/docs/Web/JavaScript/Reference/Operators/this">this</a>，<a href="/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments">arguments</a>，<a href="/zh-CN/docs/Web/JavaScript/Reference/Operators/super">super</a>或&nbsp;<a href="/zh-CN/docs/Web/JavaScript/Reference/Operators/new.target">new.target</a>。</p>
+
+<p>这些函数表达式最适合用于非方法函数，并且它们不能用作构造函数。</p>
+
+<h2 id="Syntax" name="Syntax" class="highlight-spanned"><span class="highlight-span">语法</span></h2>
+
+<h3 id="基础语法">基础语法</h3>
+
+<pre class="syntaxbox"><strong>(</strong><em>param1</em>, <em>param2</em>, …, <em>paramN</em><strong>) =&gt; {</strong> <em>statements</em> <strong>}
+(</strong><em>param1</em>, <em>param2</em>, …, <em>paramN</em><strong>) =&gt;</strong> <em>expression
+</em>// 等价于：<strong>(</strong><em>param1</em>, <em>param2</em>, …, <em>paramN</em><strong>) =&gt;</strong> { return expression; }
+/* 当删除大括号时，它将是一个隐式的返回值，这意味着我们不需要指定我们返回*/
+
+// 如果只有一个参数，圆括号是可选的:
+<em>(singleParam)</em> <strong>=&gt; {</strong> <em>statements;</em> <strong>}</strong>
+<em>singleParam</em> <strong>=&gt;</strong> { <em>statements; }</em>
+
+// 如果箭头函数 无参数 , 必须使用 ()圆括号或者 _下划线:
+<strong>() =&gt; {</strong> <em>statements;</em> <strong>} 
+</strong>或<strong>
+_ =&gt; { statements; }</strong>
+</pre>
+
+<h3 id="高级语法">高级语法</h3>
+
+<pre class="syntaxbox">//返回一个对象时，函数体外要加圆括号
+<em>params</em> =&gt; ({<em>foo: bar</em>})
+
+// 支持 <a href="/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters">剩余参数</a>和<a href="/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters">默认参数</a>:
+(<em>param1</em>, <em>param2</em>, <strong>...rest</strong>) =&gt; { <em>statements</em> }
+
+// <strong>...rest </strong>参数, 必须是参数列表<strong>最后一个参数</strong>
+<img src="https://mdn.mozillademos.org/files/15037/7dd52b92-3a8f-11e7-8040-f3a8f7d73e6d.png" alt="Rest_parameters(es6) Array function" style="height: 538px; width: 729px;">
+
+
+(<em>param1</em> <strong>= defaultValue1</strong>, <em>param2</em>, …, paramN <strong>= defaultValueN</strong>) =&gt; { <em>statements</em> }
+
+// 也支持参数列表中的<a href="/zh-CN/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">解构赋值</a>
+let f = ([a, b] = [1, 2], {x: c} = {x: a + b}) =&gt; a + b + c; // a=1; b=2; x=c; c=a+b=3;
+f();  // 6
+</pre>
+
+<p>&nbsp;</p>
+
+<h2 id="描述" class="highlight-spanned"><span class="highlight-span">描述</span></h2>
+
+<p>另见&nbsp;<a href="https://hacks.mozilla.org/2015/06/es6-in-depth-arrow-functions/" class="external external-icon" target="_blank" rel="external">“ES6 In Depth: Arrow functions” on hacks.mozilla.org</a>.</p>
+
+<p>箭头函数的引入有两个方面的作用：一是更简短的函数书写，二是对&nbsp;<code>this</code>的词法解析<code>。</code></p>
+
+<h3 id="更短的函数">更短的函数</h3>
+
+<p>更短的函数在函数式编程里很受欢迎。试比较：</p>
+
+<pre class="brush: js line-numbers  language-js"><code class="  language-js"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token string">"Hydrogen"</span><span class="token punctuation">,</span>
+  <span class="token string">"Helium"</span><span class="token punctuation">,</span>
+  <span class="token string">"Lithium"</span><span class="token punctuation">,</span>
+  <span class="token string">"Beryl­lium"</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> a2 <span class="token operator">=</span> a<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> s<span class="token punctuation">.</span>length <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> a3 <span class="token operator">=</span> a<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span> s <span class="token operator">=</span><span class="token operator">&gt;</span> s<span class="token punctuation">.</span>length <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="不绑定_this"><code>不绑定 this</code></h3>
+
+<p>在箭头函数出现之前，每个新定义的函数都有其自己的&nbsp;<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this" target="_blank" rel="external">this</a>&nbsp;</code>值（例如，构造函数的 this 指向了一个新的对象；<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode" target="_blank" rel="external">严格模式</a>下的函数的 <code>this</code> 值为 <code>undefined</code>；如果函数是作为对象的方法被调用的，则其 this 指向了那个调用它的对象）。在面向对象风格的编程中，这会带来很多困扰。</p>
+
+<pre class="brush: js line-numbers  language-js"><code class="  language-js"><span class="token keyword">function</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 构造函数 Person() 定义的 `this` 就是新实例对象自己</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">growUp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 在非严格模式下，growUp() 函数定义了其内部的 `this`为全局对象, </span>
+        <span class="token comment" spellcheck="true">// 不同于构造函数Person()的定义的 `this`</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> p <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在 ECMAScript 3/5 中，这个问题通过把this的值赋给变量，然后将该变量放到闭包中来解决。</p>
+
+<pre class="brush: js line-numbers  language-js"><code class="  language-js"><span class="token keyword">function</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> self <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span> 
+    <span class="token comment" spellcheck="true">// 也有人选择使用 `that` 而非 `self`, 只要保证一致就好.</span>
+    self<span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">growUp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 回调里面的 `self` 变量就指向了期望的那个对象了</span>
+        self<span class="token punctuation">.</span>age<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> p <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>除此之外，还可以使用 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind" target="_blank" rel="external">bind 函数</a>，把期望的&nbsp;<code>this </code>值传递给&nbsp;<code>growUp()</code>&nbsp;函数。</p>
+
+<p>箭头函数会捕获其所在上下文的 &nbsp;<code>this</code> 值，作为自己的 <code>this</code> 值，因此下面的代码将如期运行。</p>
+
+<pre class="brush: js line-numbers  language-js"><code class="  language-js"><span class="token keyword">function</span> <span class="token function">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+    <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>  
+    <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 回调里面的 `this` 变量就指向了期望的那个对象了</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> p <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="与严格模式的关系">与严格模式的关系</h4>
+
+<p>考虑到&nbsp;<code>this</code>&nbsp;是词法层面上的，<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Strict_mode" target="_blank" rel="external">严格模式</a>中与&nbsp;<code>this</code>&nbsp;相关的规则都将被忽略。</p>
+
+<pre class="brush: js line-numbers  language-js"><code class="  language-js"><span class="token keyword">var</span> f <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span><span class="token string">'use strict'</span><span class="token punctuation">;</span> <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">===</span> window<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 或全局对象</span><span class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>严格模式的其他规则依然不变.</p>
+
+<h4 id="使用_call_或_apply_调用">使用 call 或&nbsp;apply 调用</h4>
+
+<p>由于&nbsp;<code>this</code><em>&nbsp;</em>已经在词法层面完成了绑定，通过&nbsp;<code>call()</code><em>&nbsp;或</em>&nbsp;<code>apply()</code>&nbsp;方法调用一个函数时，只是传入了参数而已，对&nbsp;<code>this</code>&nbsp;并没有什么影响：</p>
+
+<pre class="brush: js line-numbers  language-js"><code class="  language-js"><span class="token keyword">var</span> adder <span class="token operator">=</span> <span class="token punctuation">{</span>
+  base <span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+
+  add <span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> f <span class="token operator">=</span> v <span class="token operator">=</span><span class="token operator">&gt;</span> v <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>base<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token function">f</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  addThruCall<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> f <span class="token operator">=</span> v <span class="token operator">=</span><span class="token operator">&gt;</span> v <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>base<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> b <span class="token operator">=</span> <span class="token punctuation">{</span>
+      base <span class="token punctuation">:</span> <span class="token number">2</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> f<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>adder<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>         <span class="token comment" spellcheck="true">// 输出 2</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>adder<span class="token punctuation">.</span><span class="token function">addThruCall</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 仍然输出 2（而不是3 ——译者注）</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="不绑定参数（arguments）"><code>不绑定参数（arguments）</code></h3>
+
+<p>箭头函数不会在其内部暴露出参数（<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments" target="_blank" rel="external"><code>arguments</code></a>&nbsp;)：&nbsp;<code>arguments.length</code>,&nbsp;<code>arguments[0]</code>,&nbsp;<code>arguments[1]</code> 等等，<b>都不会指向箭头函数的 arguments，而是指向了箭头函数所在作用域的一个名为 arguments 的值</b>（如果有的话，否则，就是 undefined。——译者注）。</p>
+
+<pre class="brush: js line-numbers  language-js"><code class="  language-js"><span class="token keyword">var</span> arguments <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> arr <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> arguments<span class="token punctuation">;</span>
+
+<span class="token function">arr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 42</span>
+
+<span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> f <span class="token operator">=</span> <span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> arguments<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">+</span>i<span class="token punctuation">;</span> 
+  <span class="token comment" spellcheck="true">// foo函数的间接参数绑定</span>
+  <span class="token keyword">return</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">foo</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 3</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>箭头函数没有自己的&nbsp;<code>arguments</code>&nbsp;，不过在大多数情形下，<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/rest_parameters" target="_blank" rel="external">rest参数</a>可以给出一个解决方案：</p>
+
+<pre class="brush: js line-numbers  language-js"><code class="  language-js"><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> 
+  <span class="token keyword">var</span> f <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span> 
+  <span class="token keyword">return</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
+
+<span class="token function">foo</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token comment" spellcheck="true">// 2</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="像方法一样使用箭头函数">像方法一样使用箭头函数</h3>
+
+<p>如上所述，箭头函数表达式对非方法函数是最合适的。让我们看看当我们试着把它们作为方法时发生了什么。</p>
+
+<pre class="brush: js line-numbers  language-js"><code class="  language-js"><span class="token string">'use strict'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
+  i<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+  b<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>i<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  c<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> <span class="token keyword">this</span><span class="token punctuation">.</span>i<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+obj<span class="token punctuation">.</span><span class="token function">b</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token comment" spellcheck="true">// undefined</span>
+obj<span class="token punctuation">.</span><span class="token function">c</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token comment" spellcheck="true">// 10, Object {...}</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>箭头函数没有定义this绑定。 另一个涉及<a title="Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性， 并返回这个对象。" href="/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty"><code>Object.defineProperty()</code></a>:的示例：</p>
+
+<pre class="brush: js line-numbers  language-js"><code class="  language-js"><span class="token string">'use strict'</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
+  a<span class="token punctuation">:</span> <span class="token number">10</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> <span class="token string">"b"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token keyword">get</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>a<span class="token punctuation">,</span> <span class="token keyword">typeof</span> <span class="token keyword">this</span><span class="token punctuation">.</span>a<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>a<span class="token operator">+</span><span class="token number">10</span><span class="token punctuation">;</span> 
+   <span class="token comment" spellcheck="true">// represents global object 'Window', therefore 'this.a' returns 'undefined'</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="使用_new_操作符">使用&nbsp;<code>new</code>&nbsp;操作符</h3>
+
+<p>箭头函数不能用作构造器，和 new 一起用就会抛出错误。</p>
+
+<pre><code>var Foo = () =&gt; {};
+var foo = new Foo(); 
+// TypeError: Foo is not a constructor</code></pre>
+
+<h3 id="使用原型属性">使用原型属性</h3>
+
+<p>箭头函数没有原型属性。</p>
+
+<pre><code>var Foo = () =&gt; {};
+console.log(Foo.prototype); 
+// undefined</code></pre>
+
+<h3 id="使用_yield_关键字">使用&nbsp;<code>yield</code>&nbsp;关键字</h3>
+
+<p>&nbsp;<code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield" target="_blank" rel="external">yield</a></code>&nbsp;关键字通常不能在箭头函数中使用（除非是嵌套在允许使用的函数内）。因此，箭头函数不能用作生成器。</p>
+
+<h2 id="函数主体" class="highlight-spanned"><span class="highlight-span">函数主体</span></h2>
+
+<p>箭头函数既支持简写也支持常规编写。</p>
+
+<p>简写时只需要一个表达式和一个返回值。常规编写时必须有一个明确的返回值。</p>
+
+<pre><code>var func = x =&gt; x * x;                  
+// 简写函数 省略return
+
+var func = (x, y) =&gt; { return x + y; }; 
+//常规编写 明确的返回值</code></pre>
+
+<h2 id="返回文字表达式" class="highlight-spanned"><span class="highlight-span">返回文字表达式</span></h2>
+
+<p>请牢记，用&nbsp;<code>params =&gt; {object:literal}&nbsp;</code>这种简单的语法返回一个文字表达式是行不通的：</p>
+
+<pre><code>
+var func = () =&gt; {  foo: 1  };
+// undefined!
+
+var func = () =&gt; {  foo: function() {}  };
+// SyntaxError: function statement requires a name（未定义函数语句）</code></pre>
+
+<p>这是因为花括号（即&nbsp;<code>{}</code> ）里面的代码被解析为序列语句了（例如，&nbsp;<code>foo</code>&nbsp;被认为是一个标签, 而非文字表达式的组成部分）。</p>
+
+<p>所以，记得用圆括号把文字表达式包起来：</p>
+
+<pre><code>
+var func = () =&gt; ({ foo: 1 });
+</code>
+</pre>
+
+<h2 id="换行" class="highlight-spanned"><span class="highlight-span"><code>换行</code></span></h2>
+
+<p>箭头函数在参数和箭头之间不能换行哦</p>
+
+<pre><code>
+var func = ()
+           =&gt; 1; 
+</code>
+<code>// SyntaxError: expected expression, got '=&gt;'
+</code></pre>
+
+<h2 id="解析顺序" class="highlight-spanned"><span class="highlight-span">解析顺序</span></h2>
+
+<p>在箭头函数中的箭头不是操作符(或者运算符,就像’+ -‘那些)，&nbsp;但是箭头函数有特殊的解析规则就是：相比普通的函数，受操作符的优先级影响。</p>
+
+<pre><code>let callback;
+
+callback = callback || function() {}; 
+// ok
+callback = callback || () =&gt; {};      
+// SyntaxError:非法箭头函数属性
+callback = callback || (() =&gt; {});    
+// ok</code></pre>
+
+<h3 id="sect1">&nbsp;</h3>
+
+<h2 id="示例" class="highlight-spanned"><span class="highlight-span">示例</span></h2>
+
+<pre class="brush: js"><span class="co1">// 一个空箭头函数,返回 undefined</span>
+<code>
+let empty = () =&gt; {};
+
+(() =&gt; "foobar")(); 
+// ES6 IIFE, 返回 "foobar" 
+
+var simple = a =&gt; a &gt; 15 ? 15 : a; 
+simple(16); // 15
+simple(10); // 10
+
+let max = (a, b) =&gt; a &gt; b ? `a bigger `: `b bigger`;
+
+// 简单的数组筛选（数组filter方法），运算（数组map方法）, ...
+
+var arr = [5, 6, 13, 0, 1, 18, 23];
+var sum = arr.reduce((a, b) =&gt; a + b);  
+// 66
+var even = arr.filter(v =&gt; v % 2 == 0);
+ // [6, 0, 18] 
+var double = arr.map(v =&gt; v * 2);       
+// [10, 12, 26, 0, 2, 36, 46] 
+</code>
+
+<code>// 更简明的promise链
+
+promise.then(a =&gt; {
+  // ...
+}).then(b =&gt; {
+   // ...
+});</code>
+</pre>
+
+<pre class="brush: js"><code>// 更易理解的无参数箭头函数
+setTimeout( () =&gt; {
+  console.log('I happen sooner');
+  setTimeout( () =&gt; {
+    // deeper code
+    console.log('I happen later');
+  }, 1);
+}, 1);</code></pre>
+
+<p>&nbsp;</p>
+
+<h2 id="规范" class="highlight-spanned"><span class="highlight-span">规范</span></h2>
+
+<table class="standard-table"><br> <tbody><br>  <tr><br>   <th scope="col">Specification</th><br>   <th scope="col">Status</th><br>   <th scope="col">Comment</th><br>  </tr><br>  <tr><br>   <td><a lang="en" hreflang="en" href="http://www.ecma-international.org/ecma-262/6.0/#sec-arrow-function-definitions" class="external external-icon" target="_blank" rel="external">ECMAScript 2015 (6th Edition, ECMA-262)<br><small lang="zh-CN">Arrow Function Definitions</small></a></td><br>   <td><span class="spec-Standard">Standard</span></td><br>   <td>Initial definition.</td><br>  </tr><br>  <tr><br>   <td><a lang="en" hreflang="en" href="https://tc39.github.io/ecma262/#sec-arrow-function-definitions" class="external external-icon" target="_blank" rel="external">ECMAScript Latest Draft (ECMA-262)<br><small lang="zh-CN">Arrow Function Definitions</small></a></td><br>   <td><span class="spec-Living">Living Standard</span></td><br>   <td>&nbsp;</td><br>  </tr><br> </tbody><br></table>
+
+<h2 id="Browser_Compatibility" name="Browser_Compatibility" class="highlight-spanned"><span class="highlight-span">浏览器兼容性</span></h2>
+
+<div><br><p></p><div class="htab"><br>    <a id="AutoCompatibilityTable" name="AutoCompatibilityTable"></a><br>    <ul><br>        <li class="selected"><a>Desktop</a></li><br>        <li><a>Mobile</a></li><br>    </ul><br></div><p></p><br><br><table><br> <tbody><br>  <tr><br>   <th>Feature</th><br>   <th>Chrome</th><br>   <th>Firefox (Gecko)</th><br>   <th>Edge</th><br>   <th>IE</th><br>   <th>Opera</th><br>   <th>Safari</th><br>  </tr><br>  <tr><br>   <td>Basic support</td><br>   <td>45.0</td><br>   <td><a title="Released on 2013-06-25." href="/en-US/Firefox/Releases/22">22.0</a> (22.0)</td><br>   <td><span style="color: #888;" title="Please update this with the earliest version of support.">(Yes)</span></td><br>   <td><br>    <p><span style="color: #f00;">未实现</span></p><br>   </td><br>   <td>32</td><br>   <td>10.0</td><br>  </tr><br>  <tr><br>   <td>Trailing comma in parameters</td><br>   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td><br>   <td><a title="Released on 2017-03-07." href="/en-US/Firefox/Releases/52">52.0</a> (52.0)</td><br>   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td><br>   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td><br>   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td><br>  </tr><br> </tbody><br></table><br><br><table><br> <tbody><br>  <tr><br>   <th>Feature</th><br>   <th>Android</th><br>   <th>Android Webview</th><br>   <th>Firefox Mobile (Gecko)</th><br>   <th>IE Mobile</th><br>   <th>Opera Mobile</th><br>   <th>Safari Mobile</th><br>   <th>Chrome for Android</th><br>  </tr><br>  <tr><br>   <td>Basic support</td><br>   <td><span style="color: #f00;">未实现</span></td><br>   <td>45.0</td><br>   <td>22.0 (22.0)</td><br>   <td><span style="color: #f00;">未实现</span></td><br>   <td><span style="color: #f00;">未实现</span></td><br>   <td>10.0</td><br>   <td>45.0</td><br>  </tr><br>  <tr><br>   <td>Trailing comma in parameters</td><br>   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td><br>   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td><br>   <td>52.0 (52.0)</td><br>   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td><br>   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td><br>   <td><span style="color: rgb(255, 153, 0);" title="Compatibility unknown; please update this.">?</span></td><br>  </tr><br> </tbody><br></table><br></div>
+
+<h2 id="sect2" class="highlight-spanned"><span class="highlight-span">&nbsp;</span></h2>
+
+<h2 id="火狐规范注意事项" class="highlight-spanned"><span class="highlight-span">火狐规范注意事项</span></h2>
+
+<ul><br> <li>在Firefox中使用箭头函数会自动添加严格模式。但是在Firefox 24开始后使用箭头函数时浏览器不在自动添加严格模式，若要使用需要手动声明。</li><br> <li>箭头函数和非标准语义不同&nbsp;<a title="表达式闭包是定义简单函数的一种便捷方式。" href="/zh-CN/docs/Web/JavaScript/Reference/Operators/Expression_Closures">expression closures</a> 添加了&nbsp;<a href="https://developer.mozilla.org/en-US/Firefox/Releases/3" target="_blank" rel="external">Firefox 3</a>&nbsp;(细节:&nbsp;<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/1.8" target="_blank" rel="external">JavaScript 1.8</a>) &nbsp;for <a title="表达式闭包是定义简单函数的一种便捷方式。" href="/zh-CN/docs/Web/JavaScript/Reference/Operators/Expression_Closures">expression closures</a> 不在词法上绑定this</li><br> <li>在Firefox 39之前，箭头函数的参数后不被允许添加换行符的(/n)。这是不符合ES6规范的有时候会像这样的代码&nbsp;<code>() \n =&gt; {}，在以后的版本中会报</code><a title="SyntaxError&nbsp;对象代表尝试解析语法上不合法的代码的错误。" href="/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError"><code>SyntaxError</code></a></li><br></ul>
+
+<h2 id="相关链接" class="highlight-spanned"><span class="highlight-span">相关链接</span></h2>
+
+<ul><br> <li><a href="https://hacks.mozilla.org/2015/06/es6-in-depth-arrow-functions/" class="external external-icon" target="_blank" rel="external">“ES6 In Depth: Arrow functions” on hacks.mozilla.org</a></li><br> <li><a href="https://gist.github.com/xgqfrms-GitHub/43f021cd194c792c9cac504a071f741a" class="external external-icon" target="_blank" rel="external">demo</a></li><br></ul>
+
+
+
+
+
+</article>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/IMG_20170702_170952.jpg" alt="闻国龙 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/IMG_20170702_170831.jpg" alt="闻国龙 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/箭头函数/" rel="tag"># 箭头函数</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/12/javascript中作用域链和执行环境的理解/" rel="next" title="javascript中作用域链和执行环境的理解">
+                <i class="fa fa-chevron-left"></i> javascript中作用域链和执行环境的理解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+          <!--MOB SHARE BEGIN-->
+<div class="-mob-share-ui-button -mob-share-open">分享</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-renren"><p>人人网</p></li>
+        <li class="-mob-share-kaixin"><p>开心网</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=1f1b2255a6b96"></script>
+<!--MOB SHARE END-->
+
+
+      
+
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="闻国龙" />
+          <p class="site-author-name" itemprop="name">闻国龙</p>
+           
+              <p class="site-description motion-element" itemprop="description">welcome to my blog!!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Syntax"><span class="nav-number">1.</span> <span class="nav-text">语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础语法"><span class="nav-number">1.1.</span> <span class="nav-text">基础语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高级语法"><span class="nav-number">1.2.</span> <span class="nav-text">高级语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#描述"><span class="nav-number">2.</span> <span class="nav-text">描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更短的函数"><span class="nav-number">2.1.</span> <span class="nav-text">更短的函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不绑定_this"><span class="nav-number">2.2.</span> <span class="nav-text">不绑定 this</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#与严格模式的关系"><span class="nav-number">2.2.1.</span> <span class="nav-text">与严格模式的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用_call_或_apply_调用"><span class="nav-number">2.2.2.</span> <span class="nav-text">使用 call 或 apply 调用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不绑定参数（arguments）"><span class="nav-number">2.3.</span> <span class="nav-text">不绑定参数（arguments）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#像方法一样使用箭头函数"><span class="nav-number">2.4.</span> <span class="nav-text">像方法一样使用箭头函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用_new_操作符"><span class="nav-number">2.5.</span> <span class="nav-text">使用 new 操作符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用原型属性"><span class="nav-number">2.6.</span> <span class="nav-text">使用原型属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用_yield_关键字"><span class="nav-number">2.7.</span> <span class="nav-text">使用 yield 关键字</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数主体"><span class="nav-number">3.</span> <span class="nav-text">函数主体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回文字表达式"><span class="nav-number">4.</span> <span class="nav-text">返回文字表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#换行"><span class="nav-number">5.</span> <span class="nav-text">换行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析顺序"><span class="nav-number">6.</span> <span class="nav-text">解析顺序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sect1"><span class="nav-number">6.1.</span> <span class="nav-text"> </span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-number">7.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规范"><span class="nav-number">8.</span> <span class="nav-text">规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Browser_Compatibility"><span class="nav-number">9.</span> <span class="nav-text">浏览器兼容性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sect2"><span class="nav-number">10.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#火狐规范注意事项"><span class="nav-number">11.</span> <span class="nav-text">火狐规范注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number">12.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">闻国龙</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "66e57368afc840a395847ec566bfdb38",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
