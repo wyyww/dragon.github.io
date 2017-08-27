@@ -310,6 +310,151 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/25/binary_tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="闻国龙">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="wenguolong">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/25/binary_tree/" itemprop="url">二叉链表的建立和三种遍历的递归方式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T09:29:36+08:00">
+                2017-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构和算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构和算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>二叉树的每个结点至多只有二棵子树(不存在度大于2的结点)，二叉树的子树有左右之分，次序不能颠倒。二叉树的第i层至多有2^{i-1}个结点；深度为k的二叉树至多有2^k-1个结点；对任何一棵二叉树T，如果其终端结点数为n_0，度为2的结点数为n_2，则n_0=n_2+1。</p>
+<p>一棵深度为k，且有2^k-1个节点称之为满二叉树；深度为k，有n个节点的二叉树，当且仅当其每一个节点都与深度为k的满二叉树中，序号为1至n的节点对应时，称之为完全二叉树。</p>
+<p>二叉树的建立过程是二叉链表的方式，即当前结点不光存储当前结点的数据，还存储左右孩子的指针</p>
+<p>这里多加了一个level用来判断结点在第几层</p>
+<p>二叉树中的中序和后序遍历都是因为结点的建立问题，不能用于建立一个二叉树<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">include&lt;stdlib.h&gt;</div><div class="line">include&lt;stdio.h&gt;</div><div class="line">typedef char ElemType;</div><div class="line"></div><div class="line">//二叉链表的构建形式</div><div class="line">typedef struct binaryTree</div><div class="line">&#123;</div><div class="line">  ElemType data;</div><div class="line">  struct binaryTree *lchild,*rchild;</div><div class="line">&#125;binaryTree,*BiTree;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//访问一个结点并打印</div><div class="line">void visited(char c,int level)</div><div class="line">&#123;</div><div class="line">  printf(&quot;%c在第%d层 \n&quot;,c, level);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">//使用前序的方式建立一个二叉树</div><div class="line">void PreorderCreateBinaryTree(BiTree *T)</div><div class="line">&#123;</div><div class="line">  char c;</div><div class="line">  scanf(&quot;%c&quot;,&amp;c);</div><div class="line"></div><div class="line">  if( &apos;#&apos; == c)</div><div class="line">  &#123;</div><div class="line">  *T = NULL;</div><div class="line">  &#125;</div><div class="line">  else&#123;</div><div class="line">  *T = (BiTree)malloc(sizeof(binaryTree));</div><div class="line">  (*T)-&gt;data = c;</div><div class="line">  PreorderCreateBinaryTree(&amp;(*T)-&gt;lchild);</div><div class="line">  PreorderCreateBinaryTree(&amp;(*T)-&gt;rchild);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">//前序遍历二叉树</div><div class="line">void PreorderTraversal(BiTree T,int level)</div><div class="line">&#123;</div><div class="line">  if( T )</div><div class="line">  &#123;</div><div class="line">  visited(T-&gt;data,level);</div><div class="line">  PreorderTraversal(T-&gt;lchild,level + 1);</div><div class="line">  PreorderTraversal(T-&gt;rchild, level + 1);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">//中序遍历二叉树</div><div class="line">void OrderTraversal(BiTree T ,int level)</div><div class="line">&#123;</div><div class="line">  if( T )</div><div class="line">  &#123;</div><div class="line">  PreorderTraversal(T-&gt;lchild,level + 1);</div><div class="line">  visited(T-&gt;data,level);</div><div class="line">  PreorderTraversal(T-&gt;rchild,level + 1);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">//后序遍历二叉树</div><div class="line">void PosteriorTraversal(BiTree T,int level)</div><div class="line">&#123;</div><div class="line">  if( T )</div><div class="line">  &#123;</div><div class="line">  PosteriorTraversal(T-&gt;lchild,level + 1);</div><div class="line">  PosteriorTraversal(T-&gt;rchild,level + 1);</div><div class="line">  visited(T-&gt;data,level);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">//层序的方式实现二叉树的遍历--------------------------------------------</div><div class="line"></div><div class="line">//利用递归的方法，按层进行打印，我们把根节点当做第0层，之后层次依次增加，如果我们想打印第二层怎么办呢，利用递归的代码如下：</div><div class="line">int sequence_traversal_level(BiTree T, int level) &#123;</div><div class="line">  if (!T || level &lt; 0)     //当树的结点不存在，并且或者根节点不存在（深度小于0）的时候，结束</div><div class="line">  return 0;</div><div class="line">  if (0 == level) &#123;        //当level为0的时候，说明这一层遍历完成，需要换行</div><div class="line">  printf(&quot;%c &quot;,T-&gt;data);</div><div class="line">  return 1;</div><div class="line">  &#125;</div><div class="line">  return sequence_traversal_level(T-&gt;lchild, level - 1) + sequence_traversal_level(T-&gt;rchild, level - 1);//左右孩子的返回值加一次为0，才能确定没有下一层，否则就需要遍历下一层；</div><div class="line">&#125;</div><div class="line">//如果我们成功的打印了给定的层次，那么就返回非0的正值，如果失败返回0。</div><div class="line">//有了这个思路，我们就可以应用一个循环，来打印这颗树的所有层的节点，但是有个问题就是我们不知道这棵二叉树的深度，</div><div class="line">//怎么来控制循环使其结束呢，仔细看一下sequence_traversal_level，如果指定的Tree是空的，那么就直接返回0，</div><div class="line">//当返回0的时候，我们就结束循环，说明没有节点可以打印了。</div><div class="line"></div><div class="line">void sequence_traversal(BiTree T) &#123;</div><div class="line">  int i = 0;</div><div class="line">  for (i = 0; ; i++) &#123;</div><div class="line">  if (!sequence_traversal_level(T, i))               //当链表中的第i层不存在的时候退出，或者树为空的时候 遍历完成，退出循环</div><div class="line">  &#123;</div><div class="line">  break;</div><div class="line">  &#125;</div><div class="line">  else&#123;                                      //否则就是该层次打印完成，换行</div><div class="line">  printf(&quot;\n&quot;);</div><div class="line">  &#125;</div><div class="line">  &#125;</div><div class="line">  printf(&quot;\n&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">int main()</div><div class="line">&#123;</div><div class="line">  BiTree T;</div><div class="line">  int level = 1;</div><div class="line">  printf(&quot;建立二叉树并访问节点&quot;);</div><div class="line">  printf(&quot;请输入结点数据，建立树:\n&quot;);</div><div class="line">  PreorderCreateBinaryTree(&amp;T);</div><div class="line">  PosteriorTraversal(T , level);</div><div class="line">  return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/07/npm包/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1395,7 +1540,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1406,7 +1551,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1417,7 +1562,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hexo," />
+  <meta name="keywords" content="302," />
 
 
 
@@ -93,27 +93,17 @@
 
 
 
-<meta name="description" content="在程序员的世界里，越来越多的人重视开源和博客的构建，如果在找工作中你能在github上有一个issue或者有几个开源项目被别人采纳，或者你有一个属于自己的博客系统，博文被更多人所赞同，那么这在你的求职过程中将会有莫大的帮助；作为一名程序猿，在学习的过程中渐渐感觉到知识体系越来越丰富，那么把这些零碎的知识写成博客放在服务器端不失为一种很明智的选择，LZ自己根据hexo博客系统自己搭了一个博客，在">
-<meta name="keywords" content="hexo">
+<meta name="description" content="一直对http状态码301和302的理解比较模糊，在遇到实际的问题和翻阅各种资料了解后，算是有了一定的理解。这里记录下，希望能有新的认识。大家也共勉。 官方的比较简洁的说明：   301 redirect: 301 代表永久性转移(Permanently Moved)    302 redirect: 302 代表暂时性转移(Temporarily Moved )    ps:这里也顺带记住了两个">
+<meta name="keywords" content="302">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何使用hexo，github和注册域名搭建个人博客系统">
-<meta property="og:url" content="http://yoursite.com/2017/07/03/hexo-domain/index.html">
+<meta property="og:title" content="301和302">
+<meta property="og:url" content="http://yoursite.com/2017/08/27/302和302的详细解析/index.html">
 <meta property="og:site_name" content="wenguolong">
-<meta property="og:description" content="在程序员的世界里，越来越多的人重视开源和博客的构建，如果在找工作中你能在github上有一个issue或者有几个开源项目被别人采纳，或者你有一个属于自己的博客系统，博文被更多人所赞同，那么这在你的求职过程中将会有莫大的帮助；作为一名程序猿，在学习的过程中渐渐感觉到知识体系越来越丰富，那么把这些零碎的知识写成博客放在服务器端不失为一种很明智的选择，LZ自己根据hexo博客系统自己搭了一个博客，在">
-<meta property="og:image" content="http://img.blog.csdn.net/20170618201823468?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170618221821309?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170618222110123?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170701174008324?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170701174320373?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170701174814488?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170701174946463?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170701175200402?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:image" content="http://img.blog.csdn.net/20170618222720970?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2017-07-03T10:21:54.713Z">
+<meta property="og:description" content="一直对http状态码301和302的理解比较模糊，在遇到实际的问题和翻阅各种资料了解后，算是有了一定的理解。这里记录下，希望能有新的认识。大家也共勉。 官方的比较简洁的说明：   301 redirect: 301 代表永久性转移(Permanently Moved)    302 redirect: 302 代表暂时性转移(Temporarily Moved )    ps:这里也顺带记住了两个">
+<meta property="og:updated_time" content="2017-08-27T14:22:01.051Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何使用hexo，github和注册域名搭建个人博客系统">
-<meta name="twitter:description" content="在程序员的世界里，越来越多的人重视开源和博客的构建，如果在找工作中你能在github上有一个issue或者有几个开源项目被别人采纳，或者你有一个属于自己的博客系统，博文被更多人所赞同，那么这在你的求职过程中将会有莫大的帮助；作为一名程序猿，在学习的过程中渐渐感觉到知识体系越来越丰富，那么把这些零碎的知识写成博客放在服务器端不失为一种很明智的选择，LZ自己根据hexo博客系统自己搭了一个博客，在">
-<meta name="twitter:image" content="http://img.blog.csdn.net/20170618201823468?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta name="twitter:title" content="301和302">
+<meta name="twitter:description" content="一直对http状态码301和302的理解比较模糊，在遇到实际的问题和翻阅各种资料了解后，算是有了一定的理解。这里记录下，希望能有新的认识。大家也共勉。 官方的比较简洁的说明：   301 redirect: 301 代表永久性转移(Permanently Moved)    302 redirect: 302 代表暂时性转移(Temporarily Moved )    ps:这里也顺带记住了两个">
 
 
 
@@ -141,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/03/hexo-domain/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/08/27/302和302的详细解析/"/>
 
 
 
 
 
-  <title>如何使用hexo，github和注册域名搭建个人博客系统 | wenguolong</title>
+  <title>301和302 | wenguolong</title>
   
 
 
@@ -320,7 +310,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/03/hexo-domain/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/27/302和302的详细解析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="闻国龙">
@@ -337,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">如何使用hexo，github和注册域名搭建个人博客系统</h1>
+          <h1 class="post-title" itemprop="name headline">301和302</h1>
         
 
         <div class="post-meta">
@@ -349,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-03T18:19:21+08:00">
-                2017-07-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-27T22:11:32+08:00">
+                2017-08-27
               </time>
             
 
@@ -372,8 +362,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
+                  <a href="/categories/http/" itemprop="url" rel="index">
+                    <span itemprop="name">http</span>
                   </a>
                 </span>
 
@@ -390,7 +380,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/07/03/hexo-domain/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/08/27/302和302的详细解析/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -416,36 +406,41 @@
       
 
       
-        <p>  在程序员的世界里，越来越多的人重视开源和博客的构建，如果在找工作中你能在github上有一个issue或者有几个开源项目被别人采纳，或者你有一个属于自己的博客系统，博文被更多人所赞同，那么这在你的求职过程中将会有莫大的帮助；作为一名程序猿，在学习的过程中渐渐感觉到知识体系越来越丰富，那么把这些零碎的知识写成博客放在服务器端不失为一种很明智的选择，LZ自己根据hexo博客系统自己搭了一个博客，在这里跟大家分享；欢迎点评，指点，本人将万分感激；</p>
-<h2 id="一，hexo必要配置：window下"><a href="#一，hexo必要配置：window下" class="headerlink" title="一，hexo必要配置：window下"></a>一，hexo必要配置：window下</h2><p> <strong>node必须要安装：</strong><br>         用来生成静态页面，可以在nodejs官网下载最新版本的，根据步骤一路安装即可<br>    <strong>git必须安装：</strong><br>    git的作用是用来把静态的博客提交到github<br>    下载地址：<a href="https://www.sourcetreeapp.com/，该版本是中文的" target="_blank" rel="external">https://www.sourcetreeapp.com/，该版本是中文的</a><br><strong>github必须安装：</strong><br>用来做远端的服务器，域名来用，网上很多这中文章，自己注册一个根据步骤来就好</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">hexo在本地全局下载安装：简单的配置hexo如下所示</div><div class="line">	 1，npm install hexo-cli -g:在命令行终端运行该命令就会在全局下载安装hexo的脚手架</div><div class="line">	2， hexo init：建立一个专门用来存放hexo博客文的文件夹，然后在文件夹根目录下运行hexo init或者hexo init blog这样就会创建一个博客文件夹，在这里里面可以配置你的博客，存放博客文（可以用csdn的markdown来制作博客文，这个还可以下载到本地，md文件后缀）</div><div class="line">	 3，从csdn博客那里下载一个制作好的博客文章，放到blog\source\_posts目录下，_posts文件夹专门用于存放你的文章</div><div class="line">	4，运行hexo server </div><div class="line">		在命令行运行该命令可以在本地浏览器查看hexo博客文章的样式，方便简洁，直接在本地浏览器输入http://localhost:4000就可以在浏览器查看你的博客文章；</div><div class="line">		下面是我建立博客的根目录</div></pre></td></tr></table></figure>
-<p><img src="http://img.blog.csdn.net/20170618201823468?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="blog根目录"><br>但是到这里你才刚把hexo搭建好，还不能在服务器上访问，我这里暂时使用的是github提供的github pages，这是github提供的静态页面托管服务器，只要注册了github账号就可以使用；具体可参考<a href="https://pages.github.com/" target="_blank" rel="external">github pages</a></p>
-<h2 id="二，下面说一下如何来配置github；"><a href="#二，下面说一下如何来配置github；" class="headerlink" title="二，下面说一下如何来配置github；"></a>二，下面说一下如何来配置github；</h2><pre><code>1，在你的github账号上面新建一个Repository，这个Repository的名字必须为your_user_name.github.io;这是一个固定的写法，这样就建立了你自己的一个github仓库，你可以使用这个作为你的服务器来托管你的静态博客页面；
-2，建立github和本地blog根目录的一个关联    
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">配置你的_config.yml文件（根目录下），注意hexo中：后面跟内容必须加空格</div><div class="line">	deploy:</div><div class="line">	  type: git</div><div class="line">	  repository: https://github.com/your_user_name/your_user_name.github.io.git</div><div class="line">	  branch: master</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">然后执行npm install hexo-deployer-git --save执行这个命令之后你才可以使用git把你的文章部署到github上</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">最后执行一下hexo deploy就可以把你制作好的文章部署到github上去</div></pre></td></tr></table></figure>
-<h2 id="三，将自己的域名和github解析"><a href="#三，将自己的域名和github解析" class="headerlink" title="三，将自己的域名和github解析"></a>三，将自己的域名和github解析</h2><pre><code>经过上面两个步骤虽然已经建立好自己的博客，而且你可以对自己的博客进行修改，添加等，但是始终用的是别人的服务器，总有点受制于人的感觉；所以我又自己注册了一个域名，并把域名映射到github的服务器，这样直接使用我注册的域名就可以访问我的博文，拜托了github的魔杖；
-首先你要有一个域名对吧，在国内比较好的域名注册网站就是阿里云，腾讯云，百度元，楼主注册了一个阿里云的账号；国外也可以注册免费域名，网站地址为http://www.freenom.com/zh/index.html?lang=zh,注册流程可以问度娘，这里不再叙述
-注册过域名之后，进入阿里云的控制台
-</code></pre><p><img src="http://img.blog.csdn.net/20170618221821309?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="阿里云">之后点击最右侧对的解析，将你的域名解析成github的</p>
-<p><strong>下面这个从网上查找的办法不可行，无法正常解析</strong><br><img src="http://img.blog.csdn.net/20170618222110123?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述">在这里记录类型选择CNAME，用来将域名指向一个域名，实现与被指向域名相同的访问效果；主机类型选择：*，用来指定所有的子域名都将指向同一地址。最后记录值就是你需要指定域名指向的地址，没有http,也没有www;然后保存等待域名解析完成之后就可以访问个人域名来达到访问github指定域名的效果；</p>
-<h2 id="可行的域名解析办法"><a href="#可行的域名解析办法" class="headerlink" title="可行的域名解析办法"></a>可行的域名解析办法</h2><p>   在阿里云管理控制台中,选择【域名】》【域名列表】》【全部域名】中刚刚购买的域名,点击解析按钮<br>这时会提醒你选择解析到阿里云主机,或者其他主机,这时需要将你在Github上创建的Github Pages的域名 xxx.github.io进行查询,得到一个IP地址。</p>
-<p>  151.101.72.133是我的github的地址（就是xiangzhihong.github.io地址，你也可以ping自己的xx.github.io，个人建议使用ping,方便快捷，不用费事从github查）.<br><img src="http://img.blog.csdn.net/20170701174008324?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>按照这个方式解析就可以了；一般解析完成也就十分钟左右，太长了就说明你的解析不正确；</p>
-<h2 id="Github解析"><a href="#Github解析" class="headerlink" title="Github解析"></a>Github解析</h2><p>在Github的xxx.github.io项目,进入【Settings】标签页,在【Custom domain】功能中,将刚刚申请的域名写进去。<br><img src="http://img.blog.csdn.net/20170701174320373?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="github域名解析"></p>
-<p>如果你填写正确。就会出现上方哪个：Your  site is published at ……</p>
-<p>这样填写完成之后呢，看样子万事大吉了，解析完成之后，你使用xxx.github.io或者你的个人域名xxx.com都可以实现访问你的域名；</p>
-<p>但是新的问题出现了，当你在客户端写了一个博客之后，在重新部署到github上，你发现使用两种方式都不能打开你的博客了~这是多么让人难受的一件事情；</p>
-<p>那么，<strong>解决办法如下：</strong><br>        在你的电脑上，找到你的blog根目录<br>        <img src="http://img.blog.csdn.net/20170701174814488?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="blog根目录"></p>
-<p>在你的source文件夹中。加入一个文件夹，CNAME，<br><img src="http://img.blog.csdn.net/20170701174946463?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="CNAME"></p>
-<p>文件夹内写的就是你需要解析的域名，不需要加http:// 也不需要加www。</p>
-<p><img src="http://img.blog.csdn.net/20170701175200402?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>之后再把你的hexo博客部署到服务器上，记得一定要部署，不然还是没有办法达到修改的目的；</p>
-<blockquote>
-<p>请注意，注册域名之后一定要实名认证，认证需要等三到五天，记住一定要实名认证，否则你的解析结果将一直<br><img src="http://img.blog.csdn.net/20170618222720970?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzcwNTk0MDQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="是"></p>
-</blockquote>
-<p>最后就完成了实现域名到服务器的映射，你就可以使用自己的域名来实现自己的博客，感觉很神奇把。</p>
+        <p>一直对http状态码301和302的理解比较模糊，在遇到实际的问题和翻阅各种资料了解后，算是有了一定的理解。这里记录下，希望能有新的认识。大家也共勉。</p>
+<p>官方的比较简洁的说明：</p>
+<pre><code>  301 redirect: 301 代表永久性转移(Permanently Moved)
+
+  302 redirect: 302 代表暂时性转移(Temporarily Moved )
+
+  ps:这里也顺带记住了两个比较相近的英语单词（permanently、temporarily），嘻哈！
+
+
+
+  详细来说，301和302状态码都表示重定向，就是说浏览器在拿到服务器返回的这个状态码后会自动跳转到一个
+  新的URL地址这个地址可以从响应的Location首部中获取（用户看到的效果就是他输入的地址A瞬间
+  变成了另一个地址B）——这是它们的共同点。
+  他们的不同在于。301表示旧地址A的资源已经被永久地移除了（这个资源不可访问了），搜索引擎在抓取新内容
+  的同时也将旧的网址交换为重定向之后的网址；302表示旧地址A的资源还在（仍然可以访问），这个重定向
+  只是临时地从旧地址A跳转到地址B，搜索引擎会抓取新的内容而保存旧的网址。
+
+这里开启傻瓜自问自答模式（自己可能想到的疑问）：
+</code></pre><p>1、什么是重定向啊？</p>
+<pre><code>就是地址A跳转到地址B啦。百度百科的解释：重定向(Redirect)
+就是通过各种方法将各种网络请求重新定个方向转到其它位置（如：网页重定向、域名的重定向、
+路由选择的变化也是对数据报文经由路径的一种重定向）。
+</code></pre><p>2、可是，为什么要进行重定向啊？什么时候需要重定向呢？</p>
+<pre><code>想跳就跳，就跳的漂亮。还是借鉴百度百科：
+</code></pre><p>1）网站调整（如改变网页目录结构）；<br>2）网页被移到一个新地址；<br>3）网页扩展名改变(如应用需要把.php改成.Html或.shtml)。<br>        这种情况下，如果不做重定向，则用户收藏夹或搜索引擎数据库中旧地址只能让访问客户得到一个404页面错误信息，访问流量白白丧失；再者某些注册了多个域名的网站，也需要通过重定向让访问这些域名的用户自动跳转到主站点等。</p>
+<p>3、那么，什么时候进行301或者302跳转呢？<br>        当一个网站或者网页24—48小时内临时移动到一个新的位置，这时候就要进行302跳转，打个比方说，我有一套房子，但是最近走亲戚去亲戚家住了，过两天我还回来的。而使用301跳转的场景就是之前的网站因为某种原因需要移除掉，然后要到新的地址访问，是永久性的，就比如你的那套房子其实是租的，现在租期到了，你又在另一个地方找到了房子，之前租的房子不住了。<br>    清晰明确而言：<br>使用301跳转的场景：<br>1）域名到期不想续费（或者发现了更适合网站的域名），想换个域名。<br>2）在搜索引擎的搜索结果中出现了不带www的域名，而带www的域名却没有收录，这个时候可以用301重定向来告诉搜索引擎我们目标的域名是哪一个。<br>3）空间服务器不稳定，换空间的时候。</p>
+<p>使用302跳转的场景：<br>        –尽量使用301跳转！</p>
+<p>4、为什么尽量要使用301跳转？——网址劫持！<br>        这里摘录百度百科上的解释：<br>        从网址A 做一个302 重定向到网址B 时，主机服务器的隐含意思是网址A 随时有可能改主意，重新显示本身的内容或转向其他的地方。大部分的搜索引擎在大部分情况下，当收到302 重定向时，一般只要去抓取目标网址就可以了，也就是说网址B。如果搜索引擎在遇到302 转向时，百分之百的都抓取目标网址B 的话，就不用担心网址URL 劫持了。问题就在于，有的时候搜索引擎，尤其是Google，并不能总是抓取目标网址。比如说，有的时候A 网址很短，但是它做了一个302 重定向到B 网址，而B 网址是一个很长的乱七八糟的URL 网址，甚至还有可能包含一些问号之类的参数。很自然的，A 网址更加用户友好，而B 网址既难看，又不用户友好。这时Google 很有可能会仍然显示网址A。由于搜索引擎排名算法只是程序而不是人，在遇到302 重定向的时候，并不能像人一样的去准确判定哪一个网址更适当，这就造成了网址URL 劫持的可能性。也就是说，一个不道德的人在他自己的网址A 做一个302 重定向到你的网址B，出于某种原因， Google 搜索结果所显示的仍然是网址A，但是所用的网页内容却是你的网址B 上的内容，这种情况就叫做网址URL 劫持。你辛辛苦苦所写的内容就这样被别人偷走了。302 重定向所造成的网址URL 劫持现象，已经存在一段时间了。不过到目前为止，似乎也没有什么更好的解决方法。在正在进行的谷歌大爸爸数据中心转换中，302 重定向问题也是要被解决的目标之一。从一些搜索结果来看，网址劫持现象有所改善，但是并没有完全解决。<br>        我的理解是，从网站A（网站比较烂）上做了一个302跳转到网站B（搜索排名很靠前），这时候有时搜索引擎会使用网站B的内容，但却收录了网站A的地址，这样在不知不觉间，网站B在为网站A作贡献，网站A的排名就靠前了。<br>      301跳转对查找引擎是一种对照驯良的跳转编制，也是查找引擎能够遭遇的跳转编制，它告诉查找引擎，这个地址弃用了，永远转向一个新地址，可以转移新域名的权重。而302重定向很容易被搜索引擎误认为是利用多个域名指向同一网站，那么你的网站就会被封掉，罪名是“利用重复的内容来干扰Google搜索结果的网站排名”。</p>
+<pre><code>自问自答模式先告一段落，这里分享下我在NodeJs中实现跳转的场景：
+之前做过一个重构的项目，由于各种原因，我们的网站的登录以及注册部分需要剥离为另一个网站，域名
+和之前的不同，所以，
+我们需要保证旧的地址也能重定向到地址中去，我们就在旧的系统的node层中作了一个重定向，代码类似这样：
+</code></pre><p>这里没有设置状态码，发现默认是302跳转，然后我们设置了301状态码，类似这样：</p>
+<p>用fiddle抓包(上面的302调整我就不上图了)，看到效果:</p>
+<p>以上是使用Express，用nodejs原生的代码实现类似这样：</p>
 
       
     </div>
@@ -496,7 +491,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
+            <a href="/tags/302/" rel="tag"># 302</a>
           
         </div>
       
@@ -509,8 +504,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/02/domain-name-server/" rel="next" title="免费打造个人网站，免费域名，免费空间，ftp使用，数据库等，免费就能搭建个人网站">
-                <i class="fa fa-chevron-left"></i> 免费打造个人网站，免费域名，免费空间，ftp使用，数据库等，免费就能搭建个人网站
+              <a href="/2017/08/21/ES6中的箭头函数/" rel="next" title="ES6中的箭头函数">
+                <i class="fa fa-chevron-left"></i> ES6中的箭头函数
               </a>
             
           </div>
@@ -518,10 +513,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/05/osi/" rel="prev" title="计算机网络中OSI七层模型各层的功能">
-                计算机网络中OSI七层模型各层的功能 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -593,17 +584,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -665,22 +647,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一，hexo必要配置：window下"><span class="nav-number">1.</span> <span class="nav-text">一，hexo必要配置：window下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二，下面说一下如何来配置github；"><span class="nav-number">2.</span> <span class="nav-text">二，下面说一下如何来配置github；</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三，将自己的域名和github解析"><span class="nav-number">3.</span> <span class="nav-text">三，将自己的域名和github解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可行的域名解析办法"><span class="nav-number">4.</span> <span class="nav-text">可行的域名解析办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Github解析"><span class="nav-number">5.</span> <span class="nav-text">Github解析</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
